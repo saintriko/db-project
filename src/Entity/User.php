@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,22 @@ class User
      * @ORM\Column(type="guid")
      */
     private $token;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserSavedPlace", mappedBy="user", orphanRemoval=true)
+     */
+    private $userSavedPlaces;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserFeedbackPlace", mappedBy="user", orphanRemoval=true)
+     */
+    private $userFeedbackPlaces;
+
+    public function __construct()
+    {
+        $this->userSavedPlaces = new ArrayCollection();
+        $this->userFeedbackPlaces = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +121,68 @@ class User
     public function setToken(string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserSavedPlace[]
+     */
+    public function getUserSavedPlaces(): Collection
+    {
+        return $this->userSavedPlaces;
+    }
+
+    public function addUserSavedPlace(UserSavedPlace $userSavedPlace): self
+    {
+        if (!$this->userSavedPlaces->contains($userSavedPlace)) {
+            $this->userSavedPlaces[] = $userSavedPlace;
+            $userSavedPlace->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSavedPlace(UserSavedPlace $userSavedPlace): self
+    {
+        if ($this->userSavedPlaces->contains($userSavedPlace)) {
+            $this->userSavedPlaces->removeElement($userSavedPlace);
+            // set the owning side to null (unless already changed)
+            if ($userSavedPlace->getUser() === $this) {
+                $userSavedPlace->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserFeedbackPlace[]
+     */
+    public function getUserFeedbackPlaces(): Collection
+    {
+        return $this->userFeedbackPlaces;
+    }
+
+    public function addUserFeedbackPlace(UserFeedbackPlace $userFeedbackPlace): self
+    {
+        if (!$this->userFeedbackPlaces->contains($userFeedbackPlace)) {
+            $this->userFeedbackPlaces[] = $userFeedbackPlace;
+            $userFeedbackPlace->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserFeedbackPlace(UserFeedbackPlace $userFeedbackPlace): self
+    {
+        if ($this->userFeedbackPlaces->contains($userFeedbackPlace)) {
+            $this->userFeedbackPlaces->removeElement($userFeedbackPlace);
+            // set the owning side to null (unless already changed)
+            if ($userFeedbackPlace->getUser() === $this) {
+                $userFeedbackPlace->setUser(null);
+            }
+        }
 
         return $this;
     }

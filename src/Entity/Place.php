@@ -54,10 +54,22 @@ class Place
      */
     private $images;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PlaceHasService", mappedBy="place")
+     */
+    private $placeHasServices;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserFeedbackPlace", mappedBy="place", orphanRemoval=true)
+     */
+    private $userFeedbackPlaces;
+
     public function __construct()
     {
         $this->workTimes = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->placeHasServices = new ArrayCollection();
+        $this->userFeedbackPlaces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,6 +193,68 @@ class Place
             // set the owning side to null (unless already changed)
             if ($image->getPlace() === $this) {
                 $image->setPlace(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PlaceHasService[]
+     */
+    public function getPlaceHasServices(): Collection
+    {
+        return $this->placeHasServices;
+    }
+
+    public function addPlaceHasService(PlaceHasService $placeHasService): self
+    {
+        if (!$this->placeHasServices->contains($placeHasService)) {
+            $this->placeHasServices[] = $placeHasService;
+            $placeHasService->setPlace($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlaceHasService(PlaceHasService $placeHasService): self
+    {
+        if ($this->placeHasServices->contains($placeHasService)) {
+            $this->placeHasServices->removeElement($placeHasService);
+            // set the owning side to null (unless already changed)
+            if ($placeHasService->getPlace() === $this) {
+                $placeHasService->setPlace(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserFeedbackPlace[]
+     */
+    public function getUserFeedbackPlaces(): Collection
+    {
+        return $this->userFeedbackPlaces;
+    }
+
+    public function addUserFeedbackPlace(UserFeedbackPlace $userFeedbackPlace): self
+    {
+        if (!$this->userFeedbackPlaces->contains($userFeedbackPlace)) {
+            $this->userFeedbackPlaces[] = $userFeedbackPlace;
+            $userFeedbackPlace->setPlace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserFeedbackPlace(UserFeedbackPlace $userFeedbackPlace): self
+    {
+        if ($this->userFeedbackPlaces->contains($userFeedbackPlace)) {
+            $this->userFeedbackPlaces->removeElement($userFeedbackPlace);
+            // set the owning side to null (unless already changed)
+            if ($userFeedbackPlace->getPlace() === $this) {
+                $userFeedbackPlace->setPlace(null);
             }
         }
 
