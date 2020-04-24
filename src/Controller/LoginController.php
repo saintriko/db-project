@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\LoginForm;
 use App\Entity\User;
 use App\Repository\RoleRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -18,36 +19,26 @@ class LoginController extends AbstractController
     /**
      * @Route("/login", name="login")
      */
-    public function index(Request $request, roleRepository $roleRepository)
+    public function index(Request $request, roleRepository $roleRepository, userRepository $userRepository)
     {
-// 1) постройте форму
         $user = new User();
         $form = $this->createForm(LoginForm::class, $user);
-
-// 2) обработайте отправку (произойдёт только в POST)
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!is_null($userRepository->findOneBy(['email' => $user->getEmail()]))) {
+                return new Response('email already exist');
+            }
 
             $role = $roleRepository
-                ->find(1);
-
+                ->findOneBy(['name' => 'user']);
             $user->setRole($role);
             $user->setToken(sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535)));
 
-// 4) сохраните Пользователя!
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
-            var_dump($user);
             $em->flush();
-
-
-            return new Response();
-//return $this->redirectToRoute('/success');
+            return new Response('success');
         }
-
-//return $this->render('login/index.html.twig', [
-// 'controller_name' => 'LoginController',
-//]);
 
         return $this->render(
             'login/index.html.twig',
