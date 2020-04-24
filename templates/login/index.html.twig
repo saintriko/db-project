@@ -12,12 +12,15 @@
     <h1>Login</h1>
 
 
+
     {{ form_start(form) }}
     {{ form_row(form.name) }}
     {{ form_row(form.email) }}
+    <div class="error" style="color: red; font-size: 10px">{{error}}</div>
     {{ form_row(form.password) }}
 
     <button type="submit">Register!</button>
+
     {{ form_end(form) }}
 </div>
 {% endblock %}
