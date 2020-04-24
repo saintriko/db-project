@@ -32,7 +32,7 @@ class WorkTime
     private $end_time;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\place", inversedBy="workTimes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="workTimes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $place;

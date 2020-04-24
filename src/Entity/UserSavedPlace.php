@@ -23,7 +23,7 @@ class UserSavedPlace
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\place")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place")
      * @ORM\JoinColumn(nullable=false)
      */
     private $place;

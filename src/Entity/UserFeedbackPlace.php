@@ -23,7 +23,7 @@ class UserFeedbackPlace
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\place", inversedBy="userFeedbackPlaces")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="userFeedbackPlaces")
      * @ORM\JoinColumn(nullable=false)
      */
     private $place;

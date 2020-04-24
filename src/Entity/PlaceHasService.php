@@ -23,7 +23,7 @@ class PlaceHasService
     private $service;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\place", inversedBy="placeHasServices")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="placeHasServices")
      * @ORM\JoinColumn(nullable=false)
      */
     private $place;
