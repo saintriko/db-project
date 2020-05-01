@@ -13,41 +13,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
     /**
      * @Route("/login", name="login")
      */
-    public function index(Request $request, roleRepository $roleRepository, userRepository $userRepository)
+    public function index(Request $request, AuthenticationUtils $utils)
     {
-        $user = new User();
-        $form = $this->createForm(LoginForm::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!is_null($userRepository->findOneBy(['email' => $user->getEmail()]))) {
-                return $this->render(
-                    'login/index.html.twig',
-                    array('form' => $form->createView(),
-                        'error' => "email already exist")
-                );
-            }
-
-            $role = $roleRepository
-                ->findOneBy(['name' => 'user']);
-            $user->setRole($role);
-            $user->setToken(sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535)));
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-            return new Response('success');
-        }
-
+        $error = $utils->getLastAuthenticationError();
+        var_dump($_POST);
+        $lastUsername = $utils->getLastUsername();
         return $this->render(
             'login/index.html.twig',
-            array('form' => $form->createView(),
-                'error' => "")
+            array('error' => $error,
+                'last_username' => $lastUsername)
         );
     }
 }
