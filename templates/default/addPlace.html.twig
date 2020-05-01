@@ -1,0 +1,228 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="grid-container">
+        <div class="section_title">
+            <img src="images/icon-pen.png">
+            <h1>Создание нового заведения</h1>
+        </div>
+    </div>
+
+    <div class="form">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x">
+                <form action="addFormAction" name="addPlaceForm" class="cell small-12 medium-12 large-4" method="post">
+
+                    <ul class="spisok">
+                        <li class="cell small-12 medium-12 large-4">
+                            <p class="field_input_name">Название</p>
+                            <input type="text" name="name" class="input-group-field input_footer_form_create_place" placeholder="Введите название заведения">
+
+                            <p class="field_input_name">Телефон</p>
+                            <input type="text" name="phone" class="input-group-field input_footer_form_create_place" placeholder="Введите номер телефона">
+
+                            <p class="field_input_name">Адрес</p>
+                            <input type="text" name="address" class="input-group-field input_footer_form_create_place" placeholder="Введите адрес заведения">
+
+                            <p class="field_input_name">Координаты</p>
+                            <div class="lat">
+                                <p class="">lat</p>
+                                <input type="number" name="lat" class="input-group-field input_footer_form_create_place">
+                            </div>
+                            <div class="lng">
+                                <p class="">lng</p>
+                                <input type="number" name="ing" class="input-group-field input_footer_form_create_place">
+                            </div>
+
+                            <p class="field_input_name">Категория</p>
+                            <label>
+                                <select class="input_footer_form_create_place" name="category">
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </label>
+
+                            <p class="field_input_name">Описание</p>
+                            <textarea class="input_review" name="description"></textarea>
+                        </li>
+
+                        <li class="cell small-12 medium-12 large-4">
+                            <p class="field_input_name">Список услуг</p>
+                            <div class="service_name">
+                                <input type="text" name="text" class="input-group-field input_footer_form_create_place" placeholder="Название услуги">
+                            </div>
+                            <div class="service_cost">
+                                <input type="number" name="number" class="input-group-field input_footer_form_create_place" placeholder="Стоимость, руб">
+                            </div>
+                            <div class="service_name">
+                                <input type="text" name="text" class="input-group-field input_footer_form_create_place" placeholder="Название услуги">
+                            </div>
+                            <div class="service_cost">
+                                <input type="number" name="number" class="input-group-field input_footer_form_create_place" placeholder="Стоимость, руб">
+                            </div>
+                            <div class="service_name">
+                                <input type="text" name="text" class="input-group-field input_footer_form_create_place" placeholder="Название услуги">
+                            </div>
+                            <div class="service_cost">
+                                <input type="number" name="number" class="input-group-field input_footer_form_create_place" placeholder="Стоимость, руб">
+                            </div>
+                            <div class="service_name">
+                                <input type="text" name="text" class="input-group-field input_footer_form_create_place" placeholder="Название услуги">
+                            </div>
+                            <div class="service_cost">
+                                <input type="number" name="number" class="input-group-field input_footer_form_create_place" placeholder="Стоимость, руб">
+                            </div>
+                            <div class="service_name">
+                                <input type="text" name="text" class="input-group-field input_footer_form_create_place" placeholder="Название услуги">
+                            </div>
+                            <div class="service_cost">
+                                <input type="number" name="number" class="input-group-field input_footer_form_create_place" placeholder="Стоимость, руб">
+                            </div>
+                            <div class="service_name">
+                                <input type="text" name="text" class="input-group-field input_footer_form_create_place" placeholder="Название услуги">
+                            </div>
+                            <div class="service_cost">
+                                <input type="number" name="number" class="input-group-field input_footer_form_create_place" placeholder="Стоимость, руб">
+                            </div>
+                            <div class="service_name">
+                                <input type="text" name="text" class="input-group-field input_footer_form_create_place" placeholder="Название услуги">
+                            </div>
+                            <div class="service_cost">
+                                <input type="number" name="number" class="input-group-field input_footer_form_create_place" placeholder="Стоимость, руб">
+                            </div>
+
+                            <p class="field_input_name">Изображения</p>
+                            <div class="img_r">
+                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
+                            </div>
+                            <div class="img_l">
+                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
+                            </div>
+                            <div class="img_r">
+                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
+                            </div>
+                            <div class="img_l">
+                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
+                            </div>
+                            <div class="img_r">
+                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
+                            </div>
+                            <div class="img_l">
+                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
+                            </div>
+                        </li>
+
+                        <li class="cell small-12 medium-12 large-4">
+                            <p class="field_input_name">Время работы</p>
+                            <table class="list_table">
+                                <tbody class="list_tbody">
+                                <tr>
+                                    <td class="day_of_week">Понедельник</td>
+                                    <td class="">
+                                        <div class="start_work">
+                                            <p class="">C</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                        <div class="end_work">
+                                            <p class="">До</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="day_of_week">Вторник</td>
+                                    <td class="">
+                                        <div class="start_work">
+                                            <p class="">C</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                        <div class="end_work">
+                                            <p class="">До</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="day_of_week">Среда</td>
+                                    <td class="">
+                                        <div class="start_work">
+                                            <p class="">C</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                        <div class="end_work">
+                                            <p class="">До</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="day_of_week">Четверг</td>
+                                    <td class="">
+                                        <div class="start_work">
+                                            <p class="">C</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                        <div class="end_work">
+                                            <p class="">До</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="day_of_week">Пятница</td>
+                                    <td class="">
+                                        <div class="start_work">
+                                            <p class="">C</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                        <div class="end_work">
+                                            <p class="">До</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="day_of_week">Суббота</td>
+                                    <td class="">
+                                        <div class="start_work">
+                                            <p class="">C</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                        <div class="end_work">
+                                            <p class="">До</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="day_of_week">Воскресение</td>
+                                    <td class="">
+                                        <div class="start_work">
+                                            <p class="">C</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                        <div class="end_work">
+                                            <p class="">До</p>
+                                            <input type="time" name="time" class="input-group-field input_footer_form_create_place">
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+
+                    <input type="submit" class="button save_button cell small-12 medium-12 large-4">Создать</input>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

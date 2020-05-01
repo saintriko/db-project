@@ -8,7 +8,61 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-
-</div>
+    <div class="home">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-12 medium-10 large-10">
+                    <div class="rating">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th class="title_table">Название</th>
+                                <th class="title_table">Рейтинг</th>
+                                <th class="title_table assessment_table">Моя оценка</th>
+                                <th width="10"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for place in places %}
+                                <tr>
+                                    <td class="institution_number">1</td>
+                                    <td><a class="institution_name" href="place.html" target="_blank">«{{ place.name }}»</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="cell small-12 medium-2 large-2">
+                    <div>
+                        <spam class="title_category">Категория</spam>
+                        <ul class="category_list">
+                            <li><a href="" class="category_is_list">Кафе</a></li>
+                            <li><a href="" class="category_is_list">Бар</a></li>
+                            <li><a href="" class="category_is_list">Ресторан</a></li>
+                            <li><a href="" class="category_is_list">Кофейня</a></li>
+                            <li><a href="" class="category_is_list">Столовая</a></li>
+                            <li><a href="" class="category_is_list">Кафетерий</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <nav aria-label="Pagination">
+                        <ul class="pagination">
+                            <li class="pagination-previous disabled"> <span class="show-for-sr">page</span></li>
+                            <li class="current"><span class="show-for-sr">You're on page</span> 1</li>
+                            <li><a href="#" aria-label="Page 2">2</a></li>
+                            <li><a href="#" aria-label="Page 3">3</a></li>
+                            <li><a href="#" aria-label="Page 4">4</a></li>
+                            <li class="ellipsis" aria-hidden="true"></li>
+                            <li><a href="#" aria-label="Page 12">12</a></li>
+                            <li><a href="#" aria-label="Page 13">13</a></li>
+                            <li class="pagination-next"><a href="#" aria-label="Next page"> <span class="show-for-sr">page</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
