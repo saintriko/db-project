@@ -26,7 +26,11 @@ class LoginController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if (!is_null($userRepository->findOneBy(['email' => $user->getEmail()]))) {
-                return new Response('email already exist');
+                return $this->render(
+                    'login/index.html.twig',
+                    array('form' => $form->createView(),
+                        'error' => "email already exist")
+                );
             }
 
             $role = $roleRepository
@@ -42,7 +46,8 @@ class LoginController extends AbstractController
 
         return $this->render(
             'login/index.html.twig',
-            array('form' => $form->createView())
+            array('form' => $form->createView(),
+                'error' => "")
         );
     }
 }
