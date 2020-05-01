@@ -17,7 +17,7 @@ class PlaceHasService
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\service")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Service")
      * @ORM\JoinColumn(nullable=false)
      */
     private $service;

@@ -19,7 +19,7 @@ class Place
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
