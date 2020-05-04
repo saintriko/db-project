@@ -6,19 +6,18 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .form_login {max-width: 150px}
     .error {color: red}
 </style>
 
 <div class="example-wrapper">
-    <h1> login</h1>
+    <h1>login</h1>
     {% if error %}
-        <span class="error">{{ error.messageKey }}</span>
+        <span class="error">{{ error }}</span>
     {% endif %}
-    <a>name: {{last_username}}</a>
-    <form action="{{ path('login') }}" method="POST">
-        <input type="text" name="name" value="{{ last_username }}" placeholder="Username here">
+    <form action="login" method="POST" class="form_login">
+        <input type="email" name="email" value="{{ email }}" placeholder="email here">
         <input type="password" name="password">
-        <input type="email" name="email"  placeholder="email here">
         <button type="submit">Login</button>
     </form>
 

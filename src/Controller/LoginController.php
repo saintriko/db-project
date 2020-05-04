@@ -20,15 +20,38 @@ class LoginController extends AbstractController
     /**
      * @Route("/login", name="login")
      */
-    public function index(Request $request, AuthenticationUtils $utils)
+    public function index(Request $request, AuthenticationUtils $utils, userRepository $userRepository)
     {
-        $error = $utils->getLastAuthenticationError();
-        var_dump($_POST);
-        $lastUsername = $utils->getLastUsername();
+        $error = "";
+        $userEmail = "";
+        if ($request->isMethod('POST')) {
+            $user = new User();
+            $params = $request->request->all();
+            $userEmail = $params['email'];
+            $userPassword = $params['password'];
+            if ($params && $userEmail) {
+                $userInBD = $userRepository->findOneBy(['email' => $userEmail]);
+                if ($userInBD && $userPassword == $userInBD->getPassword())
+                {
+                    return $this->redirectToRoute('default');
+                } else {
+                    $error = "incorrect email or password";
+                    return $this->render(
+                        'login/index.html.twig',
+                        array('error' => $error, 'email' =>$userEmail)
+                    );
+                }
+            } else {
+                $error = "email can't be empty";
+                return $this->render(
+                    'login/index.html.twig',
+                    array('error' => $error, 'email' =>$userEmail)
+                );
+            }
+        }
         return $this->render(
             'login/index.html.twig',
-            array('error' => $error,
-                'last_username' => $lastUsername)
+            array('error' => $error, 'email' =>$userEmail)
         );
     }
 }
