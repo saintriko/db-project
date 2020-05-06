@@ -19,32 +19,35 @@ class SignupController extends AbstractController
     public function index(Request $request, roleRepository $roleRepository, userRepository $userRepository)
     {
         $user = new User();
-        $form = $this->createForm(SignupForm::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!is_null($userRepository->findOneBy(['email' => $user->getEmail()]))) {
+        if ($request->isMethod('POST')) {
+            $params = $request->request->all();
+            $user->setName($params['name']);
+            $user->setEmail($params['email']);
+            $user->setPassword($params['password']);
+
+            if (!is_null($userRepository->findOneBy(['email' => $params['email']]))) {
                 return $this->render(
                     'signup/index.html.twig',
-                    array('form' => $form->createView(),
-                        'error' => "email already exist")
+                    array(
+                        'error' => "email already registered", 'email' => "")
                 );
+            } else {
+
+                    $role = $roleRepository
+                        ->findOneBy(['name' => 'user']);
+                    $user->setRole($role);
+                    $user->setToken(sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535)));
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($user);
+                    $em->flush();
+                    return new Response('success');
             }
-
-            $role = $roleRepository
-                ->findOneBy(['name' => 'user']);
-            $user->setRole($role);
-            $user->setToken(sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535)));
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-            return new Response('success');
         }
-
         return $this->render(
             'signup/index.html.twig',
-            array('form' => $form->createView(),
-                'error' => "")
+            array(
+                'error' => "", 'email' => "")
         );
     }
 }

@@ -25,7 +25,6 @@ class LoginController extends AbstractController
         $error = "";
         $userEmail = "";
         if ($request->isMethod('POST')) {
-            $user = new User();
             $params = $request->request->all();
             $userEmail = $params['email'];
             $userPassword = $params['password'];
