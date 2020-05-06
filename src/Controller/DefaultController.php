@@ -70,8 +70,8 @@ class DefaultController extends AbstractController
         for($i = 0; $i <= 6; $i++) {
             $workTime = new WorkTime();
             $workTime ->setPlace($place);
-            $workTime -> setStartTime($params[$i . "_start_time"]);
-            $workTime -> setStartTime($params[$i . "_end_time"]);
+            $workTime -> setStartTime(\DateTime::createFromFormat('H:i', $params[$i . "_start_time"]));
+            $workTime -> setEndTime(\DateTime::createFromFormat('H:i', $params[$i . "_end_time"]));
             $em = $this->getDoctrine()->getManager();
             $em->persist($place);
             $em->flush();
