@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Place;
+use App\Entity\WorkTime;
 use App\Repository\CategoryRepository;
 use App\Repository\PlaceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,10 +60,23 @@ class DefaultController extends AbstractController
         $place -> setCategory($categoryRepository
                 ->findOneBy(['id' => $params["category"]]));
         $place -> setDescription($params["description"]);
+        $place -> setLatitude($params["latitude"]);
+        $place -> setLongitude($params["longitude"]);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($place);
         $em->flush();
+
+        for($i = 0; $i <= 6; $i++) {
+            $workTime = new WorkTime();
+            $workTime ->setPlace($place);
+            $workTime -> setStartTime($params[$i . "_start_time"]);
+            $workTime -> setStartTime($params[$i . "_end_time"]);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($place);
+            $em->flush();
+        }
+
         return new Response('success');
     }
 }
