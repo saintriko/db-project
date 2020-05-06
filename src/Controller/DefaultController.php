@@ -72,8 +72,9 @@ class DefaultController extends AbstractController
             $workTime ->setPlace($place);
             $workTime -> setStartTime(\DateTime::createFromFormat('H:i', $params[$i . "_start_time"]));
             $workTime -> setEndTime(\DateTime::createFromFormat('H:i', $params[$i . "_end_time"]));
+            $workTime -> setWeekDay($i);
             $em = $this->getDoctrine()->getManager();
-            $em->persist($place);
+            $em->persist($workTime);
             $em->flush();
         }
 
