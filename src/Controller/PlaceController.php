@@ -20,6 +20,7 @@ class PlaceController extends AbstractController
         $placeCategory = $place->getCategory()->getName();
         $placePhoneNumber = $place->getPhoneNumber();
         $placeDescription = $place->getDescription();
+        $workTimes = $place -> getWorkTimes();
 
         $placeServices = $place->getPlaceHasServices();
         $services = [];
@@ -35,7 +36,8 @@ class PlaceController extends AbstractController
             'place_category' => $placeCategory,
             'place_phone_number' => $placePhoneNumber,
             'place_description' => $placeDescription,
-            'place_services' => $services
+            'place_services' => $services,
+            'workTimes' => $workTimes
         ]);
     }
 }

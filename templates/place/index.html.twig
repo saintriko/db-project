@@ -21,5 +21,10 @@
         <p class="service">цена: {{ service[1]}}</p>
     {% endfor %}
 
+    {% for  workTime in workTimes %}
+        <p class="service">время начала: {{  workTime.startTime|date("H/i", false) }}  </p>
+        <p class="service">время конца: {{ workTime.endTime|date("H/i", false) }}</p>
+    {% endfor %}
+
 </div>
 {% endblock %}
