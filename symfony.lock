@@ -88,7 +88,7 @@
         "version": "2.1.1"
     },
     "php": {
-        "version": "7.3"
+        "version": "7.1"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -110,6 +110,9 @@
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "symfony/asset": {
+        "version": "v4.4.8"
     },
     "symfony/cache": {
         "version": "v4.4.7"
