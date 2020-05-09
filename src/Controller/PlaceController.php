@@ -11,7 +11,6 @@ use App\Entity\UserFeedbackPlace;
 
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
-
 use App\Repository\UserRepository;
 
 class PlaceController extends AbstractController
@@ -34,8 +33,11 @@ class PlaceController extends AbstractController
 
         $placeImages = $place->getImages();
         $imagesPaths = [];
-        foreach($placeImages as $image) {
-            array_push($imagesPaths, "images/".$image->getPath());
+        foreach ($placeImages as $image) {
+            $filePath = "images/" . $image->getPath();
+            if (file_exists($filePath)) {
+                array_push($imagesPaths, $filePath);
+            }
         }
 
         $placeAllRates = [];
@@ -50,7 +52,7 @@ class PlaceController extends AbstractController
             array_push($services, [$service->getService()->getName(), $service->getPrice()]);
         }
 
-        if($placeAllRates) {
+        if ($placeAllRates) {
             $argRate = round(array_sum($placeAllRates) / count($placeAllRates), 2);
         }
 
