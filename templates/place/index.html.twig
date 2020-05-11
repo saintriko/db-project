@@ -3,28 +3,55 @@
 {% block title %}Hello PlaceController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .service {max-width: 80px; float: left}
-</style>
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
 
-<div class="example-wrapper">
-    <h1>{{ place_name }} ✅</h1>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
 
-    <p>{{ place_address }}</p>
-    <p>{{ place_category }}</p>
-    <p>{{ place_phone_number }}</p>
-    <p>{{ place_description }}</p>
-    {% for  service in place_services %}
-        <p class="service">услуга: {{  service[0] }}  </p>
-        <p class="service">цена: {{ service[1]}}</p>
-    {% endfor %}
+        .service {
+            max-width: 80px;
+            float: left
+        }
+    </style>
 
-    {% for  workTime in workTimes %}
-        <p class="service">время начала: {{  workTime.startTime|date("H/i", false) }}  </p>
-        <p class="service">время конца: {{ workTime.endTime|date("H/i", false) }}</p>
-    {% endfor %}
+    <div class="example-wrapper">
+        <h1>{{ place_name }} ✅</h1>
 
-</div>
+        <p> Rate: {{ argRate }}</p>
+        <p>{{ place_address }}</p>
+        <p>{{ place_category }}</p>
+        <p>{{ place_phone_number }}</p>
+        <p>{{ place_description }}</p>
+
+
+        {% for  service in place_services %}
+            <p class="service">услуга: {{ service[0] }}  </p>
+            <p class="service">цена: {{ service[1] }}</p>
+        {% endfor %}
+
+        <div style="float: left">
+            {% for  workTime in workTimes %}
+                <p class="service">время начала: {{ workTime.startTime|date("H:i", false) }}  </p>
+                <p class="service">время конца: {{ workTime.endTime|date("H:i", false) }}</p>
+            {% endfor %}
+        </div>
+
+        <div>
+            {% for  image in imagesPaths %}
+
+                <img src="{{ asset( image ) }} " width="200" height="200"/>
+
+            {% endfor %}
+        </div>
+
+
+    </div>
 {% endblock %}

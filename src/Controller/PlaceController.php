@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,13 +10,18 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\PlaceRepository;
 use App\Repository\WorkTimeRepository;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\UserFeedbackPlace;
+
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+use App\Repository\UserRepository;
 
 class PlaceController extends AbstractController
 {
     /**
      * @Route("/place/{id}", name="place")
      */
-    public function index(int $id, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository)
+    public function index(int $id, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository)
     {
         $place = $placeRepository->findOneBy(['id' => $id]);
         $placeName = $place->getName();
@@ -23,15 +29,50 @@ class PlaceController extends AbstractController
         $placeCategory = $place->getCategory()->getName();
         $placePhoneNumber = $place->getPhoneNumber();
         $placeDescription = $place->getDescription();
-        $workTimes = $place -> getWorkTimes();
-
+        $placeWorkTimes = $place->getWorkTimes();
+        $placeLatitude = $place->getLatitude();
+        $placeLongitude = $place->getLongitude();
         $placeServices = $place->getPlaceHasServices();
+
+        $placeImages = $place->getImages();
+        $imagesPaths = [];
+        foreach ($placeImages as $image) {
+            $filePath = "images/" . $image->getPath();
+            if (file_exists($filePath)) {
+                array_push($imagesPaths, $filePath);
+            }
+        }
+
+        $placeAllRates = [];
+        $argRate = 0;
+        $placeFeedback = $place->getUserFeedbackPlaces();
+        foreach ($placeFeedback as $Feedback) {
+            array_push($placeAllRates, $Feedback->getRate());
+        }
+
         $services = [];
         foreach ($placeServices as $service) {
             array_push($services, [$service->getService()->getName(), $service->getPrice()]);
         }
 
-        $placeWorkTimes = $place->getWorkTimes();
+        if ($placeAllRates) {
+            $argRate = round(array_sum($placeAllRates) / count($placeAllRates), 2);
+        }
+
+
+        //fixture
+
+//        for ($i = 0; $i < 19000; $i= $i + 1) {
+//            $feedback = new UserFeedbackPlace();
+//            $feedback->setUser($UserRepository->find(1));
+//            $feedback->setPlace($placeRepository->find(1));
+//            $feedback->setDate(new DateTime('NOW'));
+//            $feedback->setFeedback("good");
+//            $feedback->setRate(rand(1, 10));
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($feedback);
+//            $em->flush();
+//        }
 
         return $this->render('place/index.html.twig', [
             'place_name' => $placeName,
@@ -40,7 +81,11 @@ class PlaceController extends AbstractController
             'place_phone_number' => $placePhoneNumber,
             'place_description' => $placeDescription,
             'place_services' => $services,
-            'workTimes' => $workTimes
+            'workTimes' => $placeWorkTimes,
+            'argRate' => $argRate,
+            'placeLongitude' => $placeLongitude,
+            'placeLatitude' => $placeLatitude,
+            'imagesPaths' => $imagesPaths
         ]);
     }
 
