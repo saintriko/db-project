@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="grid-container">
+        <div class="section_title">
+            <img src="images/icon-pen.png">
+            <h1>{{ place.name }}</h1>
+        </div>
+    </div>
+
+    <form action="addService">
+
+        <div>
+            <p class="">Услуга</p>
+            <input type="text" name="service" class="input-group-field">
+        </div>
+        <div>
+            <p class="">Цена</p>
+            <input type="number" name="price" class="input-group-field">
+        </div>
+
+        <input type="submit" class="button save_button cell small-12 medium-12 large-4">Создать услугу</input>
+    </form>
+
+    <div>
+        {% for service in services %}
+        <div>
+            <p>{{ service[1] }}</p>
+            <p>{{ service[2] }}</p>
+            <button action="deleteService{{ service[0] }}">Удалить услугу</button>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
