@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\PlaceHasService;
+use App\Repository\ServiceRepository;
 use DateTime;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use App\Repository\PlaceRepository;
 use App\Repository\WorkTimeRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\UserFeedbackPlace;
+use App\Entity\Service;
+use App\Repository\PlaceHasServiceRepository;
 
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
@@ -91,41 +94,44 @@ class PlaceController extends AbstractController
     /**
      * @Route("/place/{id}/deleteService/{idService}", name="delete service action")
      */
-    public function deleteService(int $id, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository)
+    public function deleteService(int $id, int $idService, PlaceHasServiceRepository $placeHasServiceRepository)
     {
-        $place = $placeRepository->findOneBy(['id' => $id]);
-        $services = $place -> getPlaceHasServices();
+        $placeHasService = $placeHasServiceRepository->findOneBy(['id' => $idService]);
 
-        $placeServices = $place->getPlaceHasServices();
-        $services = [];
-        foreach ($placeServices as $service) {
-            array_push($services, [$service->getId(), $service->getService()->getName(), $service->getPrice()]);
-        }
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($placeHasService);
+        $em->flush();
 
-        $placeWorkTimes = $place->getWorkTimes();
-
-        return $this->render('place/index.html.twig', [
-            'services' => $services
-        ]);
+        return $this->redirectToRoute('edit services', ['id'=> $id]);
     }
 
     /**
      * @Route("/place/{id}/addService", name="add service action")
      */
-    public function addService(int $id, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository)
+    public function addService(int $id, PlaceRepository $placeRepository, ServiceRepository $serviceRepository, Request $request)
     {
+        $params = $request->request->all();
         $place = $placeRepository->findOneBy(['id' => $id]);
-        $services = $place -> getPlaceHasServices();
 
-        $placeServices = $place->getPlaceHasServices();
-        $services = [];
-        foreach ($placeServices as $service) {
-            array_push($services, [$service->getService()->getName(), $service->getPrice()]);
+        $service = $serviceRepository->findOneBy(['name' => $params["name"]]);
+        if ($service == NULL)
+        {
+            $service = new Service();
+            $service -> setName($params["name"]);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($service);
+            $em->flush();
         }
 
-        return $this->render('place/index.html.twig', [
-            'services' => $services
-        ]);
+        $placeHasService = new PlaceHasService();
+        $placeHasService -> setPlace($place);
+        $placeHasService -> setService($service);
+        $placeHasService -> setPrice($params["price"]);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($placeHasService);
+        $em->flush();
+
+        return $this->redirectToRoute('edit services', ['id'=> $id]);
     }
 
     /**
@@ -135,15 +141,15 @@ class PlaceController extends AbstractController
     {
         $place = $placeRepository->findOneBy(['id' => $id]);
 
-        $placeServices = $place->getPlaceHasServices();
-        $services = [];
-        foreach ($placeServices as $service) {
-            array_push($services, [$service->getId(), $service->getService()->getName(), $service->getPrice()]);
-        }
+        $categories = $categoryRepository
+            ->findAll();
 
-        return $this->render('place/editService.html.twig', [
-            'services' => $services,
+        $placeWorkTimes = $place->getWorkTimes();
+
+        return $this->render('place/editPlace.html.twig', [
+            'categories' => $categories,
             'place' => $place,
+            'workTimes' => $placeWorkTimes,
             'id' => $id
         ]);
     }

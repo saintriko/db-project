@@ -14,11 +14,11 @@
         </div>
     </div>
 
-    <form action="addService">
+    <form action="addService" method="post">
 
         <div>
             <p class="">Услуга</p>
-            <input type="text" name="service" class="input-group-field">
+            <input type="text" name="name" class="input-group-field">
         </div>
         <div>
             <p class="">Цена</p>
@@ -33,7 +33,7 @@
         <div>
             <p>{{ service[1] }}</p>
             <p>{{ service[2] }}</p>
-            <button action="deleteService{{ service[0] }}">Удалить услугу</button>
+            <a href="deleteService/{{ service[0] }}">Удалить услугу</a>
         </div>
         {% endfor %}
     </div>
