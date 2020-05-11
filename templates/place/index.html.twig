@@ -23,18 +23,18 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>{{ place_name }} ✅</h1>
+        <h1>{{ place.name }} ✅</h1>
 
         <p> Rate: {{ argRate }}</p>
-        <p>{{ place_address }}</p>
-        <p>{{ place_category }}</p>
-        <p>{{ place_phone_number }}</p>
-        <p>{{ place_description }}</p>
+        <p>{{ place.address }}</p>
+        <p>{{ place.category.name }}</p>
+        <p>{{ place.phoneNumber }}</p>
+        <p>{{ place.description }}</p>
 
 
-        {% for  service in place_services %}
-            <p class="service">услуга: {{ service[0] }}  </p>
-            <p class="service">цена: {{ service[1] }}</p>
+        {% for  service in place.PlaceHasServices %}
+            <p class="service">услуга: {{ service.service.name }}  </p>
+            <p class="service">цена: {{ service.price }}</p>
         {% endfor %}
 
         <div style="float: left">
@@ -51,6 +51,16 @@
 
             {% endfor %}
         </div>
+
+        <form action="{{ path('place', { 'id' : place.id }) }}" method="POST">
+            <select name="rate">
+                {% for i in 1..10 %}
+                <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="feedback_text">
+            <button type="submit">Leave feedback</button>
+        </form>
 
 
     </div>

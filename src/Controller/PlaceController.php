@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PlaceRepository;
 use App\Repository\WorkTimeRepository;
@@ -18,18 +19,10 @@ class PlaceController extends AbstractController
     /**
      * @Route("/place/{id}", name="place")
      */
-    public function index(int $id, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository)
+    public function index(Request $request, int $id, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository)
     {
         $place = $placeRepository->findOneBy(['id' => $id]);
-        $placeName = $place->getName();
-        $placeAddress = $place->getAddress();
-        $placeCategory = $place->getCategory()->getName();
-        $placePhoneNumber = $place->getPhoneNumber();
-        $placeDescription = $place->getDescription();
         $placeWorkTimes = $place->getWorkTimes();
-        $placeLatitude = $place->getLatitude();
-        $placeLongitude = $place->getLongitude();
-        $placeServices = $place->getPlaceHasServices();
 
         $placeImages = $place->getImages();
         $imagesPaths = [];
@@ -47,41 +40,27 @@ class PlaceController extends AbstractController
             array_push($placeAllRates, $Feedback->getRate());
         }
 
-        $services = [];
-        foreach ($placeServices as $service) {
-            array_push($services, [$service->getService()->getName(), $service->getPrice()]);
-        }
-
         if ($placeAllRates) {
             $argRate = round(array_sum($placeAllRates) / count($placeAllRates), 2);
         }
 
-
-        //fixture
-
-//        for ($i = 0; $i < 19000; $i= $i + 1) {
-//            $feedback = new UserFeedbackPlace();
-//            $feedback->setUser($UserRepository->find(1));
-//            $feedback->setPlace($placeRepository->find(1));
-//            $feedback->setDate(new DateTime('NOW'));
-//            $feedback->setFeedback("good");
-//            $feedback->setRate(rand(1, 10));
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($feedback);
-//            $em->flush();
-//        }
+        if ($request->isMethod('POST')) {
+            $userFeedBack = new UserFeedbackPlace();
+            $userFeedBack->setPlace($place);
+            $userFeedBack->setUser($UserRepository->findOneBy(['id' => 1]));  // TODO: заменить
+            $userFeedBack->setFeedback($request->get('feedback_text'));
+            $userFeedBack->setDate(new DateTime('NOW'));
+            $userFeedBack->setRate($request->get('rate'));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($userFeedBack);
+            $em->flush();
+            return $this->redirectToRoute('place', ['id'=> $id]);
+        }
 
         return $this->render('place/index.html.twig', [
-            'place_name' => $placeName,
-            'place_address' => $placeAddress,
-            'place_category' => $placeCategory,
-            'place_phone_number' => $placePhoneNumber,
-            'place_description' => $placeDescription,
-            'place_services' => $services,
+            'place' => $place,
             'workTimes' => $placeWorkTimes,
             'argRate' => $argRate,
-            'placeLongitude' => $placeLongitude,
-            'placeLatitude' => $placeLatitude,
             'imagesPaths' => $imagesPaths
         ]);
     }
