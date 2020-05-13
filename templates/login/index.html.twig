@@ -1,25 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{% block title %}Вход{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .form_login {max-width: 150px}
-    .error {color: red}
+    .error{
+        display: block;
+        text-align: center;
+        color: red;
+        font-family: Open Sans;
+        font-size: 16px;
+        line-height: 19px;
+        margin-bottom: 10px;
+    }
+    .entry_head {
+        font-family: Open Sans;
+        font-style: italic;
+        font-weight: bold;
+        font-size: 64px;
+        line-height: 87px;
+        color: #333333;
+        text-align: center;
+    }
+    .button:focus,
+    .sign_in_button:focus {
+        background: #6807F9;
+    }
 </style>
 
-<div class="example-wrapper">
-    <h1>login</h1>
+   <head>
+       <link rel="stylesheet" href="css/foundation.css">
+       <link rel="stylesheet" href="css/style.css">
+       <link href="images/favicon.ico" rel="shortcut icon">
+   </head>
+
+<body>
+<header>
+    <div class="grid-container">
+        <div class="top-bar white_header">
+            <a href="http://127.0.0.1:8000/"><img src="images/logotype.png" alt="logo" class="logo top-bar-left"></a>
+            <div class="top-bar-right">
+                <a href="http://127.0.0.1:8000/login"><button class="clear button sign_in" href="#">Войти</button></a>
+                <a href="http://127.0.0.1:8000/signup"><button class="button sign_up" href="#">Зарегестрироваться</button></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="entry">
+    <h1 class="entry_head">Добро пожаловать</h1>
     {% if error %}
         <span class="error">{{ error }}</span>
     {% endif %}
-    <form action="login" method="POST" class="form_login">
-        <input type="email" name="email" value="{{ email }}" placeholder="email here">
-        <input type="password" name="password">
-        <button type="submit">Login</button>
-    </form>
-
+    <div class="grid-container">
+        <form class="form_input" action="login" method="POST">
+            <input type="email" name="email" class="input-group-field input_footer_form" placeholder="Email" value="{{ email }}">
+            <input type="password" name="password" class="input-group-field input_footer_form" placeholder="Пароль">
+            <button type="submit" class="button sign_in_button">Войти</button>
+        </form>
+    </div>
 </div>
+</body>
 {% endblock %}

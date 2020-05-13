@@ -1,12 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}Сайт заведений{% endblock %}
 
 {% block body %}
-<style>
+
+<!--<style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+</style>-->
+
+<head>
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700i&display=swap&subset=cyrillic" rel="stylesheet">
+</head>
+
+<body>
+<header>
+    <div class="grid-container">
+        <div class="top-bar white_header">
+            <a href="http://127.0.0.1:8000/"><img src="images/logotype.png" alt="logo" class="logo top-bar-left"></a>
+            <div class="top-bar-right">
+                <a href="http://127.0.0.1:8000/login"><button class="clear button sign_in" href="#">Войти</button></a>
+                <a href="http://127.0.0.1:8000/signup"><button class="button sign_up" href="#">Зарегестрироваться</button></a>
+            </div>
+        </div>
+    </div>
+</header>
 
     <div class="home">
         <div class="grid-container">
@@ -26,7 +48,7 @@
                             <tbody>
                             {% for place in places %}
                                 <tr>
-                                    <td class="institution_number">1</td>
+                                    <td class="institution_number">{{ place.id }}</td>
                                     <td><a class="institution_name" href="place/{{ place.id }}">«{{ place.name }}»</a></td>
                                 </tr>
                             {% endfor %}
