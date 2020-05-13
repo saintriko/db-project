@@ -18,11 +18,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     /**
-     * @Route("/login", name="login")
+     * @Route("/login2", name="login")
      */
-    public function index(Request $request, AuthenticationUtils $utils, userRepository $userRepository)
+    public function index(Request $request, AuthenticationUtils $authenticationUtils, userRepository $userRepository)
     {
-        $error = "";
+        $error = $authenticationUtils->getLastAuthenticationError();
         $userEmail = "";
         if ($request->isMethod('POST')) {
             $params = $request->request->all();

@@ -14,7 +14,7 @@
         <div class="top-bar white_header">
             <a href="{{ path('default')}}"><img src="{{ asset('images/favicon.ico') }}" alt="logo" class="logo top-bar-left"></a>
             <div class="top-bar-right">
-                <a href="{{ path('login')}}"><button class="clear button sign_in" >Войти</button></a>
+                <a href="{{ path('app_login')}}"><button class="clear button sign_in" >Войти</button></a>
                 <a href="{{ path('signup')}}"><button class="button sign_up" >Зарегестрироваться</button></a>
             </div>
         </div>
@@ -38,7 +38,7 @@
                             <tbody>
                             {% for place in places %}
                                 <tr>
-                                    <td><a class="institution_name" href="place/{{ place.id }}">«{{ place.name }}»</a></td>
+                                    <td><a class="institution_name" href="{{ path('place', { 'id' : place.id }) }}">«{{ place.name }}»</a></td>
                                     <td>{{ place.avgRate }}</td>
                                 </tr>
                             {% endfor %}
