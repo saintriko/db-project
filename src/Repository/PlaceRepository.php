@@ -36,6 +36,32 @@ class PlaceRepository extends ServiceEntityRepository
     }
     */
 
+
+    public function findAvgRatePlace(): array
+    {
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql = 'SELECT place.id, place.category_id, place.name, avg(user_feedback_place.rate) AS avgRate FROM place 
+LEFT JOIN user_feedback_place ON place.id = user_feedback_place.place_id
+GROUP BY place.id ORDER BY avgRate DESC;';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function findAvgRatePlaceByCategory($category_id): array
+    {
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql = 'SELECT place.id, place.category_id, place.name, avg(user_feedback_place.rate) AS avgRate FROM place 
+LEFT JOIN user_feedback_place ON place.id = user_feedback_place.place_id
+WHERE place.category_id = :category_id
+GROUP BY place.id ORDER BY avgRate DESC;';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['category_id' => $category_id]);
+        return $stmt->fetchAll();
+    }
+
     /*
     public function findOneBySomeField($value): ?Place
     {

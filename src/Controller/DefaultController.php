@@ -16,19 +16,33 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="default")
      */
-    public function index(placeRepository $placeRepository)
+    public function index(placeRepository $placeRepository, categoryRepository $categoryRepository)
     {
-        $places = $placeRepository
-            ->findBy(
-                [],
-                ['id' => 'ASC'],
-                5,
-                0
-            );
-        //var_dump($places);
+        $categories = $categoryRepository
+            ->findAll();
+
+        $placesByAvg = $placeRepository->findAvgRatePlace();
 
         return $this->render('default/index.html.twig', [
-            'places' => $places
+            'places' => $placesByAvg,
+            'categories' => $categories,
+            'currentCategory' => ""
+        ]);
+    }
+
+    /**
+     * @Route("/category/{category}", name="category")
+     */
+    public function category(placeRepository $placeRepository, categoryRepository $categoryRepository, $category)
+    {
+        $categories = $categoryRepository
+            ->findAll();
+
+        $placesByAvg = $placeRepository->findAvgRatePlaceByCategory($categoryRepository->findOneBy(['name'=>$category])->getId());
+        return $this->render('default/index.html.twig', [
+            'places' => $placesByAvg,
+            'categories' => $categories,
+            'currentCategory' => $category
         ]);
     }
 
@@ -41,6 +55,8 @@ class DefaultController extends AbstractController
         var_dump($params);
         $categories = $categoryRepository
             ->findAll();
+
+
         return $this->render('default/addPlace.html.twig', [
             'categories' => $categories
         ]);
