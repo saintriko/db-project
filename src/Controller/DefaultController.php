@@ -38,7 +38,7 @@ class DefaultController extends AbstractController
     public function add(categoryRepository $categoryRepository, Request $request)
     {
         $params = $request->request->all();
-        var_dump($params);
+
         $categories = $categoryRepository
             ->findAll();
         return $this->render('default/addPlace.html.twig', [
@@ -52,7 +52,7 @@ class DefaultController extends AbstractController
     public function addFormAction(categoryRepository $categoryRepository, Request $request)
     {
         $params = $request->request->all();
-        var_dump($params);
+
         $place = new Place();
         $place -> setName($params["name"]);
         $place -> setAddress($params["address"]);
