@@ -28,22 +28,14 @@
         }
 </style>
 
-<head>
-        <link href="images/favicon.ico" rel="shortcut icon">
-        <link rel="stylesheet" href="css/foundation.css">
-        <link rel="stylesheet" href="css/app.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700i&display=swap&subset=cyrillic" rel="stylesheet">
-</head>
-
 <body>
 <header>
     <div class="grid-container">
         <div class="top-bar white_header">
-            <a href="http://127.0.0.1:8000/"><img src="images/logotype.png" alt="logo" class="logo top-bar-left"></a>
+            <a href="{{ path('default')}}"><img src="images/logotype.png" alt="logo" class="logo top-bar-left"></a>
             <div class="top-bar-right">
-                <a href="http://127.0.0.1:8000/login"><button class="clear button sign_in" href="#">Войти</button></a>
-                <a href="http://127.0.0.1:8000/signup"><button class="button sign_up" href="#">Зарегестрироваться</button></a>
+                <a href="{{ path('login')}}"><button class="clear button sign_in" href="#">Войти</button></a>
+                <a href="{{ path('signup')}}"><button class="button sign_up" href="#">Зарегестрироваться</button></a>
             </div>
         </div>
     </div>
@@ -63,6 +55,5 @@
         </form>
     </div>
 </div>
-
 </body>
 {% endblock %}

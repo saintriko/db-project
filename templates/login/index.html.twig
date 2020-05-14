@@ -4,7 +4,7 @@
 
 {% block body %}
 <style>
-    .error{
+    .error_login{
         display: block;
         text-align: center;
         color: red;
@@ -28,20 +28,14 @@
     }
 </style>
 
-   <head>
-       <link rel="stylesheet" href="css/foundation.css">
-       <link rel="stylesheet" href="css/style.css">
-       <link href="images/favicon.ico" rel="shortcut icon">
-   </head>
-
 <body>
 <header>
     <div class="grid-container">
         <div class="top-bar white_header">
-            <a href="http://127.0.0.1:8000/"><img src="images/logotype.png" alt="logo" class="logo top-bar-left"></a>
+            <a href="{{ path('default')}}"><img src="images/logotype.png" alt="logo" class="logo top-bar-left"></a>
             <div class="top-bar-right">
-                <a href="http://127.0.0.1:8000/login"><button class="clear button sign_in" href="#">Войти</button></a>
-                <a href="http://127.0.0.1:8000/signup"><button class="button sign_up" href="#">Зарегестрироваться</button></a>
+                <a href="{{ path('login')}}"><button class="clear button sign_in" href="#">Войти</button></a>
+                <a href="{{ path('signup')}}"><button class="button sign_up" href="#">Зарегестрироваться</button></a>
             </div>
         </div>
     </div>
@@ -50,10 +44,11 @@
 <div class="entry">
     <h1 class="entry_head">Добро пожаловать</h1>
     {% if error %}
-        <span class="error">{{ error }}</span>
+        <span class="error_login">{{ error }}</span>
     {% endif %}
     <div class="grid-container">
-        <form action="{{ path('login') }}" class="form_input" method="POST">
+        <!--<form action="{{ path('login') }}" class="form_input" method="POST">
+            <form action="{{ path('login') }}" class="form_input" method="POST">-->
             <input type="email" name="email" class="input-group-field input_footer_form" placeholder="Email" value="{{ email }}">
             <input type="password" name="password" class="input-group-field input_footer_form" placeholder="Пароль">
             <button type="submit" class="button sign_in_button">Войти</button>
