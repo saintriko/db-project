@@ -28,6 +28,10 @@ class PlaceController extends AbstractController
     public function index(Request $request, int $id, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository)
     {
         $place = $placeRepository->findOneBy(['id' => $id]);
+        if (!$place) {
+            throw $this->createNotFoundException('The place does not exist');
+        }
+
         $placeWorkTimes = $place->getWorkTimes();
 
         $placeImages = $place->getImages();
@@ -63,11 +67,14 @@ class PlaceController extends AbstractController
             return $this->redirectToRoute('place', ['id'=> $id]);
         }
 
+        $commentaries = $place -> getUserFeedbackPlaces();
+
         return $this->render('place/index.html.twig', [
             'place' => $place,
             'workTimes' => $placeWorkTimes,
             'argRate' => $argRate,
-            'imagesPaths' => $imagesPaths
+            'imagesPaths' => $imagesPaths,
+            'commentaries' => $commentaries
         ]);
     }
 
@@ -77,6 +84,9 @@ class PlaceController extends AbstractController
     public function editServices(int $id, PlaceRepository $placeRepository, CategoryRepository $categoryRepository)
     {
         $place = $placeRepository->findOneBy(['id' => $id]);
+        if (!$place) {
+            throw $this->createNotFoundException('The place does not exist');
+        }
 
         $placeServices = $place->getPlaceHasServices();
         $services = [];
@@ -140,6 +150,9 @@ class PlaceController extends AbstractController
     public function editPlace(int $id, PlaceRepository $placeRepository, CategoryRepository $categoryRepository)
     {
         $place = $placeRepository->findOneBy(['id' => $id]);
+        if (!$place) {
+            throw $this->createNotFoundException('The place does not exist');
+        }
 
         $categories = $categoryRepository
             ->findAll();

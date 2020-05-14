@@ -8,7 +8,13 @@
         <link rel="stylesheet" href="css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700i&display=swap&subset=cyrillic" rel="stylesheet">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+
+        {% block stylesheets %}
+
+            <link rel="stylesheet" href="{{ asset('css/foundation.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700i&display=swap&subset=cyrillic" rel="stylesheet">{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}

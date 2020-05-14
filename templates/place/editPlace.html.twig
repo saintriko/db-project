@@ -17,7 +17,7 @@
     <div class="form">
         <div class="grid-container">
             <div class="grid-x grid-margin-x">
-                <form action="editAction" name="addPlaceForm" class="cell small-12 medium-12 large-4" method="post">
+                <form action="{{ path('edit place action', { 'id' : place.id }) }}" action="editAction" name="addPlaceForm" class="cell small-12 medium-12 large-4" method="post">
 
                     <ul class="spisok">
                         <li class="cell small-12 medium-12 large-4">
