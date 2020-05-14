@@ -8,9 +8,9 @@
 <header>
     <div class="grid-container">
         <div class="top-bar white_header">
-            <a href="{{ path('default')}}"><img src="images/logotype.png" alt="logo" class="logo top-bar-left"></a>
+            <a href="{{ path('default')}}"><img src="{{ asset('images/favicon.ico') }}" alt="logo" class="logo top-bar-left"></a>
             <div class="top-bar-right">
-                <a href="{{ path('login')}}"><button class="clear button sign_in" href="#">Войти</button></a>
+                <a href="{{ path('app_login')}}"><button class="clear button sign_in" href="#">Войти</button></a>
                 <a href="{{ path('signup')}}"><button class="button sign_up" href="#">Зарегестрироваться</button></a>
             </div>
         </div>
@@ -25,7 +25,6 @@
                         <table>
                             <thead>
                             <tr>
-                                <th></th>
                                 <th class="title_table">Название</th>
                                 <th class="title_table">Рейтинг</th>
                                 <th class="title_table assessment_table">Моя оценка</th>
@@ -35,8 +34,8 @@
                             <tbody>
                             {% for place in places %}
                                 <tr>
-                                    <td class="institution_number">{{ place.id }}</td>
-                                    <td><a class="institution_name" href="place/{{ place.id }}">«{{ place.name }}»</a></td>
+                                    <td><a class="institution_name" href="{{ path('place', { 'id' : place.id }) }}">«{{ place.name }}»</a></td>
+                                    <td>{{ place.avgRate }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -47,12 +46,9 @@
                     <div>
                         <spam class="title_category">Категория</spam>
                         <ul class="category_list">
-                            <li><a href="" class="category_is_list">Кафе</a></li>
-                            <li><a href="" class="category_is_list">Бар</a></li>
-                            <li><a href="" class="category_is_list">Ресторан</a></li>
-                            <li><a href="" class="category_is_list">Кофейня</a></li>
-                            <li><a href="" class="category_is_list">Столовая</a></li>
-                            <li><a href="" class="category_is_list">Кафетерий</a></li>
+                            {% for  category in categories %}
+                                <li><a href="{{ path('category', { 'category' : category.name }) }}" class="category_is_list {% if currentCategory == category.name %} active {% endif %} ">{{category.name}}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
