@@ -198,6 +198,6 @@ class PlaceController extends AbstractController
             $em->flush();
         }
 
-        return new Response('success');
+        return new Response('success'); //TODO заменить на рероут
     }
 }
