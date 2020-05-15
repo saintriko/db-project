@@ -70,7 +70,7 @@ class PlaceController extends AbstractController
             if (!$userFeedBack)
                 $userFeedBack = new UserFeedbackPlace();
             $userFeedBack->setPlace($place);
-            $userFeedBack->setUser($UserRepository->findOneBy(['id' => 1]));  // TODO: заменить
+            $userFeedBack->setUser($user);
             $userFeedBack->setFeedback($request->get('feedback_text'));
             $userFeedBack->setDate(new DateTime('NOW'));
             $userFeedBack->setRate($request->get('rate'));
