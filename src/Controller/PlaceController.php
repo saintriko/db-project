@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Entity\PlaceHasService;
 use App\Entity\UserSavedPlace;
+use App\Repository\ImageRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserFeedbackPlaceRepository;
 use App\Repository\UserSavedPlaceRepository;
 use DateTime;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PlaceRepository;
@@ -159,6 +161,19 @@ class PlaceController extends AbstractController
     }
 
     /**
+     * @Route("/place/{id}/deleteImage/{idImage}", name="delete image")
+     */
+    public function deleteImage(int $id, int $idImage, PlaceHasServiceRepository $placeHasServiceRepository, ImageRepository $imageRepository)
+    {
+        $image = $imageRepository->findOneBy(['id' => $idImage]);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($image);
+        $em->flush();
+
+        return $this->redirectToRoute('edit place', ['id'=> $id]);
+    }
+
+    /**
      * @Route("/place/{id}/edit", name="edit place")
      */
     public function editPlace(int $id, PlaceRepository $placeRepository, CategoryRepository $categoryRepository)
@@ -203,6 +218,23 @@ class PlaceController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->persist($place);
         $em->flush();
+
+        $files = $request->files->all();
+        foreach ($files as $file) {
+            if (!is_null($file)) {
+                try {
+                    $filename = uniqid($params["name"]) . "." . $file->guessExtension();
+                    $file->move($this->getParameter('kernel.project_dir') . '/public/images', $filename);  //TODO путь может не работать в онлайне
+                    $photo = new Image();
+                    $photo->setPlace($place);
+                    $photo->setPath($filename);
+                    $emPhoto = $this->getDoctrine()->getManager();
+                    $emPhoto->persist($photo);
+                    $emPhoto->flush();
+                } catch (FileException $e) {
+                }
+            }
+        }
 
         $placeWorkTimes = $place->getWorkTimes();
 
