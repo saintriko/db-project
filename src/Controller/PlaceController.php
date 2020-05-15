@@ -6,6 +6,7 @@ use App\Entity\Image;
 use App\Entity\PlaceHasService;
 use App\Entity\UserSavedPlace;
 use App\Repository\ServiceRepository;
+use App\Repository\UserFeedbackPlaceRepository;
 use App\Repository\UserSavedPlaceRepository;
 use DateTime;
 use App\Repository\CategoryRepository;
@@ -28,7 +29,7 @@ class PlaceController extends AbstractController
     /**
      * @Route("/place/{id}", name="place")
      */
-    public function index(Request $request, int $id, UserRepository $userRepository, UserSavedPlaceRepository $userSavedPlaceRepository, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository)
+    public function index(Request $request, int $id, UserRepository $userRepository, UserSavedPlaceRepository $userSavedPlaceRepository, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository, UserFeedbackPlaceRepository $userFeedbackPlaceRepository)
     {
         $user = $this->getUser();
         if ($user)
@@ -63,7 +64,9 @@ class PlaceController extends AbstractController
         }
 
         if ($request->isMethod('POST')) {
-            $userFeedBack = new UserFeedbackPlace();
+            $userFeedBack = $userFeedbackPlaceRepository->findOneBy(['user' => $user, 'place' => $place]);
+            if (!$userFeedBack)
+                $userFeedBack = new UserFeedbackPlace();
             $userFeedBack->setPlace($place);
             $userFeedBack->setUser($UserRepository->findOneBy(['id' => 1]));  // TODO: заменить
             $userFeedBack->setFeedback($request->get('feedback_text'));
