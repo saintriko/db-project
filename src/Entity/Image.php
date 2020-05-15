@@ -22,7 +22,7 @@ class Image
     private $path;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\place", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
      */
     private $place;

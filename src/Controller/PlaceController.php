@@ -2,11 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\PlaceHasService;
+use App\Entity\UserSavedPlace;
+use App\Repository\ImageRepository;
 use App\Repository\ServiceRepository;
+use App\Repository\UserFeedbackPlaceRepository;
+use App\Repository\UserSavedPlaceRepository;
 use DateTime;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PlaceRepository;
@@ -25,9 +31,14 @@ class PlaceController extends AbstractController
     /**
      * @Route("/place/{id}", name="place")
      */
-    public function index(Request $request, int $id, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository)
+    public function index(Request $request, int $id, UserRepository $userRepository, UserSavedPlaceRepository $userSavedPlaceRepository, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository, UserFeedbackPlaceRepository $userFeedbackPlaceRepository)
     {
+        $user = $this->getUser();
+        if ($user)
+            $user = $userRepository->findOneBy(['id'=>$user->getId()]);
+
         $place = $placeRepository->findOneBy(['id' => $id]);
+
         if (!$place) {
             throw $this->createNotFoundException('The place does not exist');
         }
@@ -55,9 +66,11 @@ class PlaceController extends AbstractController
         }
 
         if ($request->isMethod('POST')) {
-            $userFeedBack = new UserFeedbackPlace();
+            $userFeedBack = $userFeedbackPlaceRepository->findOneBy(['user' => $user, 'place' => $place]);
+            if (!$userFeedBack)
+                $userFeedBack = new UserFeedbackPlace();
             $userFeedBack->setPlace($place);
-            $userFeedBack->setUser($UserRepository->findOneBy(['id' => 1]));  // TODO: заменить
+            $userFeedBack->setUser($user);
             $userFeedBack->setFeedback($request->get('feedback_text'));
             $userFeedBack->setDate(new DateTime('NOW'));
             $userFeedBack->setRate($request->get('rate'));
@@ -69,12 +82,15 @@ class PlaceController extends AbstractController
 
         $commentaries = $place -> getUserFeedbackPlaces();
 
+        $savedPlace = ($user != null) ? $userSavedPlaceRepository->findOneBy(['user' => $user, 'place' => $place]) : null;
+
         return $this->render('place/index.html.twig', [
             'place' => $place,
             'workTimes' => $placeWorkTimes,
             'argRate' => $argRate,
             'imagesPaths' => $imagesPaths,
-            'commentaries' => $commentaries
+            'commentaries' => $commentaries,
+            'saved' => $savedPlace
         ]);
     }
 
@@ -145,6 +161,19 @@ class PlaceController extends AbstractController
     }
 
     /**
+     * @Route("/place/{id}/deleteImage/{idImage}", name="delete image")
+     */
+    public function deleteImage(int $id, int $idImage, PlaceHasServiceRepository $placeHasServiceRepository, ImageRepository $imageRepository)
+    {
+        $image = $imageRepository->findOneBy(['id' => $idImage]);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($image);
+        $em->flush();
+
+        return $this->redirectToRoute('edit place', ['id'=> $id]);
+    }
+
+    /**
      * @Route("/place/{id}/edit", name="edit place")
      */
     public function editPlace(int $id, PlaceRepository $placeRepository, CategoryRepository $categoryRepository)
@@ -158,12 +187,14 @@ class PlaceController extends AbstractController
             ->findAll();
 
         $placeWorkTimes = $place->getWorkTimes();
+        $placeImages = $place->getImages();
 
         return $this->render('place/editPlace.html.twig', [
             'categories' => $categories,
             'place' => $place,
             'workTimes' => $placeWorkTimes,
-            'id' => $id
+            'id' => $id,
+            'placeImages' => $placeImages
         ]);
     }
 
@@ -188,6 +219,23 @@ class PlaceController extends AbstractController
         $em->persist($place);
         $em->flush();
 
+        $files = $request->files->all();
+        foreach ($files as $file) {
+            if (!is_null($file)) {
+                try {
+                    $filename = uniqid($params["name"]) . "." . $file->guessExtension();
+                    $file->move($this->getParameter('kernel.project_dir') . '/public/images', $filename);  //TODO путь может не работать в онлайне
+                    $photo = new Image();
+                    $photo->setPlace($place);
+                    $photo->setPath($filename);
+                    $emPhoto = $this->getDoctrine()->getManager();
+                    $emPhoto->persist($photo);
+                    $emPhoto->flush();
+                } catch (FileException $e) {
+                }
+            }
+        }
+
         $placeWorkTimes = $place->getWorkTimes();
 
         for($i = 0; $i <= 6; $i++) {
@@ -198,6 +246,6 @@ class PlaceController extends AbstractController
             $em->flush();
         }
 
-        return new Response('success'); //TODO заменить на рероут
+        return new Response('success'); //TODO redirect
     }
 }

@@ -38,15 +38,22 @@
 }
 
 .top-bar .place,
-.top-bar .feedback
+.top-bar .log_out,
+.top-bar .name_account
 {
     padding: 0 20px 0 0;
 }
 
-.setting
+.top-bar .place:hover,
+.top-bar .log_out:hover
+{
+    text-decoration: underline;
+}
+
+/*.setting
 {
     cursor: pointer;
-}
+}*/
 
 /*.name_account:hover {
     text-decoration: underline;
@@ -394,10 +401,10 @@
 .working_hours {
     float: left;
 }
-
+/*
 .list_of_services {
     float: right;
-}
+}*/
 
 .view_full {
     font-family: Open Sans;

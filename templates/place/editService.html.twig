@@ -1,31 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}Редактирование услуг{% endblock %}
 
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .over_the_field {
+            margin-bottom: 0;
+        }
     </style>
+
+<body>
     <div class="grid-container">
         <div class="section_title">
-            <img src="images/icon-pen.png">
+            <img src= "{{ asset('images/icon-pen.png') }}">
             <h1>{{ place.name }}</h1>
         </div>
     </div>
 
-    <form  action="addService" method="post">
+    <form class="form" action="addService" method="post">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-12 medium-12 large-4">
+                <div class="service_name">
+                    <p class="over_the_field">Услуга</p>
+                    <input type="text" name="text" class="input-group-field input_footer_form_create_place" placeholder="Название услуги">
+                </div>
+                <div class="service_cost">
+                    <p class="over_the_field">Цена</p>
+                    <input type="number" name="price" class="input-group-field input_footer_form_create_place" placeholder="Стоимость, руб">
+                </div>
 
-        <div>
-            <p class="">Услуга</p>
-            <input type="text" name="name" class="input-group-field">
+                <label for="createNewPlace" class="button save_button cell small-12 medium-12 large-4">Создать услугу</label>
+                <input type="submit" id="createNewPlace" class="show-for-sr"></input>
+                </div>
+            </div>
         </div>
-        <div>
-            <p class="">Цена</p>
-            <input type="number" name="price" class="input-group-field">
-        </div>
-
-        <input type="submit" class="button save_button cell small-12 medium-12 large-4">Создать услугу</input>
     </form>
 
     <div>
@@ -37,5 +46,5 @@
         </div>
         {% endfor %}
     </div>
-
+</body>
 {% endblock %}
