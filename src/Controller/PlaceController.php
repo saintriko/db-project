@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\PlaceHasService;
 use App\Entity\UserSavedPlace;
 use App\Repository\ServiceRepository;
@@ -33,6 +34,7 @@ class PlaceController extends AbstractController
         $user = $userRepository->findOneBy(['id'=>$user->getId()]);
 
         $place = $placeRepository->findOneBy(['id' => $id]);
+
         if (!$place) {
             throw $this->createNotFoundException('The place does not exist');
         }
@@ -166,12 +168,14 @@ class PlaceController extends AbstractController
             ->findAll();
 
         $placeWorkTimes = $place->getWorkTimes();
+        $placeImages = $place->getImages();
 
         return $this->render('place/editPlace.html.twig', [
             'categories' => $categories,
             'place' => $place,
             'workTimes' => $placeWorkTimes,
-            'id' => $id
+            'id' => $id,
+            'placeImages' => $placeImages
         ]);
     }
 
