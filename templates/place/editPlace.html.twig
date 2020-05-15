@@ -54,24 +54,23 @@
                         </li>
 
                         <li class="cell small-12 medium-12 large-4">
-                            <p class="field_input_name">Изображения</p>
-                            <div class="img_r">
-                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
+
+                            <p class="field_input_name">Удалить изображения</p>
+                            {%  for image in placeImages %}
+                                {{  image.path }}
+                            {% endfor %}
+                            <p class="field_input_name">Добавить изображения</p>
+                            <div>
+                                <input type="file" name="photo0"
+                                       class="input-group-field input_footer_form_create_place">
                             </div>
-                            <div class="img_l">
-                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
+                            <div>
+                                <input type="file" name="photo1"
+                                       class="input-group-field input_footer_form_create_place">
                             </div>
-                            <div class="img_r">
-                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
-                            </div>
-                            <div class="img_l">
-                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
-                            </div>
-                            <div class="img_r">
-                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
-                            </div>
-                            <div class="img_l">
-                                <input type="url" name="url" class="input-group-field input_footer_form_create_place" placeholder="Ссылка на изображение">
+                            <div>
+                                <input type="file" name="photo2"
+                                       class="input-group-field input_footer_form_create_place">
                             </div>
                         </li>
 
