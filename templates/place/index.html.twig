@@ -24,9 +24,9 @@
 
     <div class="example-wrapper">
         <h1>{{ place.name }} ✅</h1>
-        {% if saved %}
+        {% if app.user and saved %}
             <a href="{{ path('remove_from_favourite', { 'id' : place.id }) }}">Удалить из ибранного(можно добавить картинку)</a>
-        {% else %}
+        {% elseif app.user %}
             <a href="{{ path('add_to_favourite', { 'id' : place.id }) }}">Добавить в избранное(можно добавить картинку)</a>
         {% endif %}
         <p> Rate: {{ argRate }}</p>

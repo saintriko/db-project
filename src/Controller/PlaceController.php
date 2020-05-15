@@ -30,7 +30,8 @@ class PlaceController extends AbstractController
     public function index(Request $request, int $id, UserRepository $userRepository, UserSavedPlaceRepository $userSavedPlaceRepository, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository)
     {
         $user = $this->getUser();
-        $user = $userRepository->findOneBy(['id'=>$user->getId()]);
+        if ($user)
+            $user = $userRepository->findOneBy(['id'=>$user->getId()]);
 
         $place = $placeRepository->findOneBy(['id' => $id]);
         if (!$place) {
@@ -74,7 +75,7 @@ class PlaceController extends AbstractController
 
         $commentaries = $place -> getUserFeedbackPlaces();
 
-        $savedPlace = $userSavedPlaceRepository->findOneBy(['user' => $user, 'place' => $place]);
+        $savedPlace = ($user != null) ? $userSavedPlaceRepository->findOneBy(['user' => $user, 'place' => $place]) : null;
 
         return $this->render('place/index.html.twig', [
             'place' => $place,
