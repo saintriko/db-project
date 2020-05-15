@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\PlaceHasService;
+use App\Entity\UserSavedPlace;
 use App\Repository\ServiceRepository;
+use App\Repository\UserSavedPlaceRepository;
 use DateTime;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,8 +27,11 @@ class PlaceController extends AbstractController
     /**
      * @Route("/place/{id}", name="place")
      */
-    public function index(Request $request, int $id, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository)
+    public function index(Request $request, int $id, UserRepository $userRepository, UserSavedPlaceRepository $userSavedPlaceRepository, PlaceRepository $placeRepository, WorkTimeRepository $WorkTimeRepository, UserRepository $UserRepository)
     {
+        $user = $this->getUser();
+        $user = $userRepository->findOneBy(['id'=>$user->getId()]);
+
         $place = $placeRepository->findOneBy(['id' => $id]);
         if (!$place) {
             throw $this->createNotFoundException('The place does not exist');
@@ -69,12 +74,15 @@ class PlaceController extends AbstractController
 
         $commentaries = $place -> getUserFeedbackPlaces();
 
+        $savedPlace = $userSavedPlaceRepository->findOneBy(['user' => $user, 'place' => $place]);
+
         return $this->render('place/index.html.twig', [
             'place' => $place,
             'workTimes' => $placeWorkTimes,
             'argRate' => $argRate,
             'imagesPaths' => $imagesPaths,
-            'commentaries' => $commentaries
+            'commentaries' => $commentaries,
+            'saved' => $savedPlace
         ]);
     }
 

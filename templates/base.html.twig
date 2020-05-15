@@ -15,17 +15,17 @@
     <body>
 
         {% if app.user == null %}
-                <header>
-                        <div class="grid-container">
-                                <div class="top-bar white_header">
-                                        <a href="{{ path('default')}}"><img src="{{ asset('images/favicon.ico') }}" alt="logo" class="logo top-bar-left"></a>
-                                        <div class="top-bar-right">
-                                                <a href="{{ path('app_login')}}"><button class="clear button sign_in" href="#">Войти</button></a>
-                                                <a href="{{ path('signup')}}"><button class="button sign_up" href="#">Зарегестрироваться</button></a>
-                                        </div>
-                                </div>
+            <header>
+                <div class="grid-container">
+                    <div class="top-bar white_header">
+                        <a href="{{ path('default')}}"><img src="{{ asset('images/favicon.ico') }}" alt="logo" class="logo top-bar-left"></a>
+                        <div class="top-bar-right">
+                            <a href="{{ path('app_login')}}"><button class="clear button sign_in" href="#">Войти</button></a>
+                            <a href="{{ path('signup')}}"><button class="button sign_up" href="#">Зарегестрироваться</button></a>
                         </div>
-                </header>
+                    </div>
+                </div>
+            </header>
         {% else %}
             <header>
                 <div class="grid-container">
@@ -33,6 +33,7 @@
                         <a href="{{ path('default')}}"><img src="{{ asset('images/favicon.ico') }}" alt="logo" class="logo top-bar-left"></a>
                         <p>{{ app.user.name }}</p>
                         <div class="top-bar-right">
+                            <a href="{{ path('favourite_places') }}">Любимые места</a>
                             <a href="{{ path('app_logout') }}">Logout</a>
                         </div>
                     </div>
