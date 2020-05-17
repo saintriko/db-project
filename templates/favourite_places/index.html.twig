@@ -1,15 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FavouritePlacesController!{% endblock %}
+{% block title %}Любимые места{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+    .place_remove
+    {
+    font-family: Open Sans;
+    font-size: 14px;
+    color: #333333;
+        float: right;
+    }
 
-<div class="example-wrapper">
+    .place_name
+    {
+        font-family: Open Sans;
+        font-style: italic;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 27px;
+        color: #333333;
+        float: left;
+    }
+    </style>
 
+    <div class="grid-container">
+        <div class="section_title">
+            <img src= "{{ asset('images/icon-favorite.png') }}">
+            <h1>Любимые места</h1>
+        </div>
+    </div>
+
+    <div class="places_newcss">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-12 medium-6 large-4">
+                    {% for place in places %}
+
+                        <div class="place">
+                            <a class="place_name" href="{{ path('place', { 'id' : place.place.id }) }}">{{ place.place.name }}</a>
+                            <a class="place_remove" href="{{ path('remove_from_favourite', { 'id' : place.place.id }) }}">Удалить из избранного</a>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#
     {% for place in places %}
 
         <div>
@@ -18,5 +57,7 @@
         </div>
 
     {% endfor %}
-</div>
+    #}
+
+
 {% endblock %}

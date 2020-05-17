@@ -35,11 +35,11 @@
                             <p class="field_input_name">Координаты</p>
                             <div class="lat">
                                 <p class="">lat</p>
-                                <input value="{{ place.latitude }}" type="number" name="latitude" class="input-group-field input_footer_form_create_place">
+                                <input value="{{ place.latitude }}" type="number" step=0.000001 name="latitude" class="input-group-field input_footer_form_create_place">
                             </div>
                             <div class="lng">
                                 <p class="">lng</p>
-                                <input value="{{ place.longitude }}" type="number" name="longitude" class="input-group-field input_footer_form_create_place">
+                                <input value="{{ place.longitude }}" type="number" step=0.000001 name="longitude" class="input-group-field input_footer_form_create_place">
                             </div>
 
                             <p class="field_input_name">Категория</p>

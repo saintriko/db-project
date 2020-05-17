@@ -1,8 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PlaceController!{% endblock %}
+{% block title %}{{ place.name }}{% endblock %}
 
 {% block body %}
+
+    <style>
+        .favorite_place_delete {
+            float: left;
+            width: 54px;
+            height: 40px;
+            background: url("{{ asset('../images/icon-favorites.png') }}") no-repeat 0px 0px;
+            transition: 0.5s;
+        }
+        .favorite_place_delete:hover {
+            background-position: 0px -48px;
+        }
+
+        .favorite_place_delete:focus {
+            background-position: 0px -48px;
+        }
+
+        {#.elementRate
+        {
+            border: hidden;
+            height: 50px;
+            overflow-y: hidden;
+        }#}
+
+        .elementRate > * {
+            float: left;
+            padding: 10px 0 0 16px;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .elementRate > *:nth-child(0n+10) {
+            padding: 10px 0 0 10px;
+        }
+
+        .elementRate > *:nth-child(0n+1):hover {
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+2):hover {
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+3):hover{
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+4):hover{
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+5):hover {
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+6):hover {
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+7):hover {
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+8):hover {
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+9):hover{
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+10):hover {
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+1):focus,
+        .elementRate > *:nth-child(0n+2):focus,
+        .elementRate > *:nth-child(0n+3):focus,
+        .elementRate > *:nth-child(0n+4):focus,
+        .elementRate > *:nth-child(0n+5):focus,
+        .elementRate > *:nth-child(0n+6):focus,
+        .elementRate > *:nth-child(0n+7):focus,
+        .elementRate > *:nth-child(0n+8):focus,
+        .elementRate > *:nth-child(0n+9):focus,
+        .elementRate > *:nth-child(0n+10):focus
+        {
+            background-position: 0px 2px;
+        }
+
+        .elementRate > *:nth-child(0n+1):active,
+        .elementRate > *:nth-child(0n+2):active,
+        .elementRate > *:nth-child(0n+3):active,
+        .elementRate > *:nth-child(0n+4):active,
+        .elementRate > *:nth-child(0n+5):active,
+        .elementRate > *:nth-child(0n+6):active,
+        .elementRate > *:nth-child(0n+7):active,
+        .elementRate > *:nth-child(0n+8):active,
+        .elementRate > *:nth-child(0n+9):active,
+        .elementRate > *:nth-child(0n+10):active
+        {
+            background-position: 0px 2px;
+        }
+
+
+    </style>
 
 
     <div class="information">
@@ -11,12 +117,34 @@
                 <div class="cell small-12 medium-12 large-6 info_left">
                     <div class="section_title">
                         <h1> {{ place.name }} </h1>
+                        {#
+                        <div class="user_rating">
+                            <a href="#100" class="favorite_place"></a>
+                            <p class="" style="">
+                                <span class="elementRate">
+                                    <a href="#10" class="rate-show"></a>
+                                    <a href="#9" class="rate-show"></a>
+                                    <a href="#8" class="rate-show"></a>
+                                    <a href="#7" class="rate-show"></a>
+                                    <a href="#6" class="rate-show"></a>
+                                    <a href="#5" class="rate-show"></a>
+                                    <a href="#4" class="rate-show"></a>
+                                    <a href="#3" class="rate-show"></a>
+                                    <a href="#2" class="rate-show"></a>
+                                    <a href="#1" class="rate-show"></a>
+                                </span>
+                            </p>
+                        </div>
+                        #}
+                        <div class="user_rating">
 
                         {% if app.user and saved %}
-                            <a href="{{ path('remove_from_favourite', { 'id' : place.id }) }}">Удалить из ибранного(можно добавить картинку)</a>
+                            <a class="favorite_place_delete" href="{{ path('remove_from_favourite', { 'id' : place.id }) }}"></a>
                         {% elseif app.user %}
-                            <a href="{{ path('add_to_favourite', { 'id' : place.id }) }}">Добавить в избранное(можно добавить картинку)</a>
+                            <a class="favorite_place" href="{{ path('add_to_favourite', { 'id' : place.id }) }}"></a>
                         {% endif %}
+
+                        </div>
 
                         <p class="text_info"> Rate: {{ argRate }}</p>
                     </div>
@@ -80,11 +208,18 @@
                     <div class="div_review">
                         <spam class="title_info">Оценить заведение</spam>
                         <form action="{{ path('place', { 'id' : place.id }) }}" method="POST">
-                            <select name="rate">
+
+                            <span name="rate" class="elementRate">
+
                                 {% for i in 1..10 %}
-                                    <option value="{{ i }}">{{ i }}</option>
+                                <a href="#" value="{{ i }}" class="rate-show">{{ i }}</a>
+
+                                    {#<option class="rate-show" value="{{ i }}">{{ i }}</option>#}
                                 {% endfor %}
-                            </select>
+                            </span>
+
+                            {#</select>#}
+
                             {#<input class="input_review" placeholder="Поделиться мнением, написать отзыв" type="text" name="feedback_text">#}
                             <textarea class="input_review" placeholder="Поделиться мнением, написать отзыв"></textarea>
                             <button class="button send_comment" type="submit">Leave feedback</button>
