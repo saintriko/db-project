@@ -4,22 +4,14 @@
 
 {% block body %}
     <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
-
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
+        .input_image{
+            margin-bottom: 20px;
         }
     </style>
 
     <div class="grid-container">
         <div class="section_title">
-            <img src="images/icon-pen.png">
+            <img src= "{{ asset('images/icon-pen.png') }}">
             <h1>Создание нового заведения</h1>
         </div>
     </div>
@@ -33,26 +25,26 @@
                         <li class="cell small-12 medium-12 large-4">
                             <p class="field_input_name">Название</p>
                             <input type="text" name="name" class="input-group-field input_footer_form_create_place"
-                                   placeholder="Введите название заведения">
+                                   placeholder="Введите название заведения" required>
 
                             <p class="field_input_name">Телефон</p>
                             <input type="text" name="phone" class="input-group-field input_footer_form_create_place"
-                                   placeholder="Введите номер телефона">
+                                   placeholder="Введите номер телефона" required>
 
                             <p class="field_input_name">Адрес</p>
                             <input type="text" name="address" class="input-group-field input_footer_form_create_place"
-                                   placeholder="Введите адрес заведения">
+                                   placeholder="Введите адрес заведения" required>
 
                             <p class="field_input_name">Координаты</p>
                             <div class="lat">
                                 <p class="">lat</p>
-                                <input type="number" name="latitude"
-                                       class="input-group-field input_footer_form_create_place">
+                                <input type="number" step=0.000001 name="latitude"
+                                       class="input-group-field input_footer_form_create_place" required>
                             </div>
                             <div class="lng">
                                 <p class="">lng</p>
-                                <input type="number" name="longitude"
-                                       class="input-group-field input_footer_form_create_place">
+                                <input type="number" step=0.000001 name="longitude"
+                                       class="input-group-field input_footer_form_create_place" required>
                             </div>
 
                             <p class="field_input_name">Категория</p>
@@ -65,7 +57,7 @@
                             </label>
 
                             <p class="field_input_name">Описание</p>
-                            <textarea class="input_review" name="description"></textarea>
+                            <textarea class="input_review" name="description" required></textarea>
                         </li>
 
                         <li class="cell small-12 medium-12 large-4">
@@ -73,15 +65,15 @@
                             <p class="field_input_name">Изображения</p>
                             <div>
                                 <input type="file" name="photo0"
-                                       class="input-group-field input_footer_form_create_place">
+                                       class="input-group-field input_image{#input_footer_form_create_place#}" required>
                             </div>
                             <div>
                                 <input type="file" name="photo1"
-                                       class="input-group-field input_footer_form_create_place">
+                                       class="input-group-field input_image">
                             </div>
                             <div>
                                 <input type="file" name="photo2"
-                                       class="input-group-field input_footer_form_create_place">
+                                       class="input-group-field input_image">
                             </div>
                         </li>
 
@@ -95,12 +87,12 @@
                                         <div class="start_work">
                                             <p class="">C</p>
                                             <input type="time" name="0 start time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                         <div class="end_work">
                                             <p class="">До</p>
                                             <input type="time" name="0 end time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -110,12 +102,12 @@
                                         <div class="start_work">
                                             <p class="">C</p>
                                             <input type="time" name="1 start time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                         <div class="end_work">
                                             <p class="">До</p>
                                             <input type="time" name="1 end time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -125,12 +117,12 @@
                                         <div class="start_work">
                                             <p class="">C</p>
                                             <input type="time" name="2 start time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                         <div class="end_work">
                                             <p class="">До</p>
                                             <input type="time" name="2 end time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -140,12 +132,12 @@
                                         <div class="start_work">
                                             <p class="">C</p>
                                             <input type="time" name="3 start time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                         <div class="end_work">
                                             <p class="">До</p>
                                             <input type="time" name="3 end time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -155,12 +147,12 @@
                                         <div class="start_work">
                                             <p class="">C</p>
                                             <input type="time" name="4 start time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                         <div class="end_work">
                                             <p class="">До</p>
                                             <input type="time" name="4 end time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -170,12 +162,12 @@
                                         <div class="start_work">
                                             <p class="">C</p>
                                             <input type="time" name="5 start time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                         <div class="end_work">
                                             <p class="">До</p>
                                             <input type="time" name="5 end time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -185,12 +177,12 @@
                                         <div class="start_work">
                                             <p class="">C</p>
                                             <input type="time" name="6 start time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                         <div class="end_work">
                                             <p class="">До</p>
                                             <input type="time" name="6 end time"
-                                                   class="input-group-field input_footer_form_create_place">
+                                                   class="input-group-field input_footer_form_create_place" required>
                                         </div>
                                     </td>
                                 </tr>
@@ -200,7 +192,8 @@
                     </ul>
 
 
-                    <input type="submit" class="button save_button cell small-12 medium-12 large-4">Создать</input>
+                    <label for="createNewPlace" class="button save_button cell small-12 medium-12 large-4">Создать</label>
+                    <input type="submit" id="createNewPlace" class="show-for-sr"></input>
 
                 </form>
             </div>

@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}Редактирование заведения{% endblock %}
 
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .input_image{
+            margin-bottom: 20px;
+        }
     </style>
+
     <div class="grid-container">
         <div class="section_title">
-            <img src="images/icon-pen.png">
-            <h1>Создание нового заведения</h1>
+            <img src= "{{ asset('images/icon-pen.png') }}">
+            <h1>Редактирование заведения</h1>
         </div>
     </div>
 
@@ -33,11 +35,11 @@
                             <p class="field_input_name">Координаты</p>
                             <div class="lat">
                                 <p class="">lat</p>
-                                <input value="{{ place.latitude }}" type="number" name="latitude" class="input-group-field input_footer_form_create_place">
+                                <input value="{{ place.latitude }}" type="number" step=0.000001 name="latitude" class="input-group-field input_footer_form_create_place">
                             </div>
                             <div class="lng">
                                 <p class="">lng</p>
-                                <input value="{{ place.longitude }}" type="number" name="longitude" class="input-group-field input_footer_form_create_place">
+                                <input value="{{ place.longitude }}" type="number" step=0.000001 name="longitude" class="input-group-field input_footer_form_create_place">
                             </div>
 
                             <p class="field_input_name">Категория</p>
@@ -61,13 +63,13 @@
                             {% endfor %}
                             <p class="field_input_name">Добавить изображения</p>
                             <div>
-                                <input type="file" name="photo0" class="input-group-field input_footer_form_create_place">
+                                <input type="file" name="photo0" class="input-group-field input_image">
                             </div>
                             <div>
-                                <input type="file" name="photo1" class="input-group-field input_footer_form_create_place">
+                                <input type="file" name="photo1" class="input-group-field input_image">
                             </div>
                             <div>
-                                <input type="file" name="photo2" class="input-group-field input_footer_form_create_place">
+                                <input type="file" name="photo2" class="input-group-field input_image">
                             </div>
                         </li>
 
@@ -171,7 +173,8 @@
                         </li>
                     </ul>
 
-                    <input type="submit" class="button save_button cell small-12 medium-12 large-4">Создать</input>
+                    <label for="createNewPlace" class="button save_button cell small-12 medium-12 large-4">Изменить</label>
+                    <input type="submit" id="createNewPlace" class="show-for-sr"></input>
 
                 </form>
             </div>
