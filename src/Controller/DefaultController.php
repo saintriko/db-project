@@ -70,10 +70,8 @@ class DefaultController extends AbstractController
         } else {
             $placesByAvg = $placeRepository->findAvgRatePlaceByCategoryWithoutUserRate($categoryRepository->findOneBy(['name' => $category])->getId());
         }
-        print_r(count($placesByAvg));
         $countOfPlaces = count($placesByAvg) - 1;
         $countOfPages = $countOfPlaces / $placesOnPage;
-        print_r($countOfPages);
         $placesByAvg = array_slice($placesByAvg, $placesOnPage * ($page - 1), $placesOnPage);
 
         return $this->render('default/index.html.twig', [
