@@ -13,12 +13,8 @@
     <div class="grid-container">
         <div class="section_title">
             <img src= "{{ asset('images/icon-pen.png') }}">
-            <h1>{{ place.name }}</h1>
+            <h1><a href="{{ path('place', { 'id' : place.id }) }}">{{ place.name }}</a></h1>
         </div>
-    </div>
-
-    <div>
-        <a href="{{ path('place', { 'id' : place.id }) }}">К заведнию</a>
     </div>
 
     <form  action="addService" method="post">
