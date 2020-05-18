@@ -35,10 +35,15 @@ class DefaultController extends AbstractController
             ->findAll();
 
         $placesOnPage = 10;
-        $placesByAvg = $placeRepository->findAvgRatePlace();
+        if ($this->getUser()) {
+            $placesByAvg = $placeRepository->findAvgRatePlace($this->getUser()->getId());
+        } else {
+            $placesByAvg = $placeRepository->findAvgRatePlaceWithoutUserRate();
+        }
         $countOfPlaces = count($placesByAvg);
         $countOfPages = $countOfPlaces / $placesOnPage;
-        $placesByAvg = array_slice($placesByAvg, $placesOnPage * ( $page - 1 ) , $placesOnPage);
+
+        $placesByAvg = array_slice($placesByAvg, $placesOnPage * ($page - 1), $placesOnPage);
 
 
         return $this->render('default/index.html.twig', [
@@ -60,10 +65,14 @@ class DefaultController extends AbstractController
             ->findAll();
 
         $placesOnPage = 10;
-        $placesByAvg = $placeRepository->findAvgRatePlaceByCategory($categoryRepository->findOneBy(['name' => $category])->getId());
+        if ($this->getUser()) {
+            $placesByAvg = $placeRepository->findAvgRatePlaceByCategory($categoryRepository->findOneBy(['name' => $category])->getId(), $this->getUser()->getId());
+        } else {
+            $placesByAvg = $placeRepository->findAvgRatePlaceByCategoryWithoutUserRate($categoryRepository->findOneBy(['name' => $category])->getId());
+        }
         $countOfPlaces = count($placesByAvg);
         $countOfPages = $countOfPlaces / $placesOnPage;
-        $placesByAvg = array_slice($placesByAvg, $placesOnPage * ( $page - 1 ) , $placesOnPage);
+        $placesByAvg = array_slice($placesByAvg, $placesOnPage * ($page - 1), $placesOnPage);
 
         return $this->render('default/index.html.twig', [
             'places' => $placesByAvg,

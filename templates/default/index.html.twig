@@ -22,8 +22,9 @@
                             <tbody>
                             {% for place in places %}
                                 <tr>
-                                    <td><a class="institution_name" href="{{ path('place', { 'id' : place.id }) }}">«{{ place.name }}»</a></td>
+                                    <td><a class="institution_name" href="{{ path('place', { 'id' : place.placeId }) }}">«{{ place.name }}»</a></td>
                                     <td>{{ place.avgRate }}</td>
+                                    <td>{% if app.user %}{{ place.rate }}{% endif %}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -40,6 +41,7 @@
                         </ul>
                     </div>
                 </div>
+                {% if countOfPages > 1 %}
                 <div>
                     <nav aria-label="Pagination">
                         <ul class="pagination">
@@ -51,6 +53,7 @@
                         </ul>
                     </nav>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
