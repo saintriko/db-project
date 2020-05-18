@@ -27,7 +27,7 @@
                                 </tr>
                             {% endfor %}
                             </tbody>
-                        </table>-
+                        </table>
                     </div>
                 </div>
                 <div class="cell small-12 medium-2 large-2">
@@ -44,13 +44,10 @@
                     <nav aria-label="Pagination">
                         <ul class="pagination">
                             <li class="pagination-previous disabled"> <span class="show-for-sr">page</span></li>
-                            <li class="current"><span class="show-for-sr">You're on page</span> 1</li>
-                            <li><a href="#" aria-label="Page 2">2</a></li>
-                            <li><a href="#" aria-label="Page 3">3</a></li>
-                            <li><a href="#" aria-label="Page 4">4</a></li>
-                            <li class="ellipsis" aria-hidden="true"></li>
-                            <li><a href="#" aria-label="Page 12">12</a></li>
-                            <li><a href="#" aria-label="Page 13">13</a></li>
+                            {% for i in 1..countOfPages + 1 %}
+
+                            <li><a {% if i == currentPage %} class="current" {% endif %} href="{{ path('page', { 'page' : i }) }}" aria-label="Page 2">{{ i }}</a></li>
+                            {% endfor %}
                             <li class="pagination-next"><a href="#" aria-label="Next page"> <span class="show-for-sr">page</span></a></li>
                         </ul>
                     </nav>
