@@ -110,25 +110,6 @@
 
     </style>
 
-    <div class="example-wrapper">
-        <h1>{{ place.name }}</h1>
-
-        {% if app.user.role.name == 'ROLE_ADMIN' %}
-            <a href="{{ path('edit services', { 'id' : place.id }) }}">Редактировать услуги места</a>
-            <a href="{{ path('edit place', { 'id' : place.id }) }}">Редактировать место</a>
-        {% endif %}
-
-        {% if app.user and saved %}
-            <a href="{{ path('remove_from_favourite', { 'id' : place.id }) }}">Удалить из ибранного(можно добавить картинку)</a>
-        {% elseif app.user %}
-            <a href="{{ path('add_to_favourite', { 'id' : place.id }) }}">Добавить в избранное(можно добавить картинку)</a>
-        {% endif %}
-        <p> Rate: {{ argRate }}</p>
-        <p>{{ place.address }}</p>
-        <p>{{ place.category.name }}</p>
-        <p>{{ place.phoneNumber }}</p>
-        <p>{{ place.description }}</p>
-
     <div class="information">
         <div class="grid-container">
             <div class="grid-x grid-margin-x">
@@ -164,6 +145,12 @@
 
                         </div>
 
+                        <div class="edit_place">
+                            {% if app.user and app.user.role.name == 'ROLE_ADMIN' %}
+                                <a href="{{ path('edit services', { 'id' : place.id }) }}">Редактировать услуги места</a>
+                                <a href="{{ path('edit place', { 'id' : place.id }) }}">Редактировать место</a>
+                            {% endif %}
+                        </div>
                         <p class="text_info"> Rate: {{ argRate }}</p>
                     </div>
 
@@ -227,19 +214,21 @@
                         <spam class="title_info">Оценить заведение</spam>
                         <form action="{{ path('place', { 'id' : place.id }) }}" method="POST">
 
-                            <span name="rate" class="elementRate">
+                            <span class="elementRate">
 
+                                <select name="rate">
                                 {% for i in 1..10 %}
-                                <a href="#" value="{{ i }}" class="rate-show">{{ i }}</a>
+                                    <option value="{{ i }}" class="rate-show">{{ i }}</option>
 
-                                    {#<option class="rate-show" value="{{ i }}">{{ i }}</option>#}
-                                {% endfor %}
+                                        {#<option class="rate-show" value="{{ i }}">{{ i }}</option>#}
+                                    {% endfor %}
+                                </select>
                             </span>
 
                             {#</select>#}
 
                             {#<input class="input_review" placeholder="Поделиться мнением, написать отзыв" type="text" name="feedback_text">#}
-                            <textarea class="input_review" placeholder="Поделиться мнением, написать отзыв"></textarea>
+                            <textarea name="feedback_text" class="input_review" placeholder="Поделиться мнением, написать отзыв"></textarea>
                             <button class="button send_comment" type="submit">Leave feedback</button>
                         </form>
 
