@@ -246,6 +246,6 @@ class PlaceController extends AbstractController
             $em->flush();
         }
 
-        return new Response('success'); //TODO redirect
+        return $this->redirectToRoute('place', ['id'=> $id]);
     }
 }
