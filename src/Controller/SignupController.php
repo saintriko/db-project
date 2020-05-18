@@ -41,7 +41,8 @@ class SignupController extends AbstractController
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($user);
                     $em->flush();
-                    return new Response('success'); // TODO заменить на редирект
+
+                    return $this->redirectToRoute('app_login');
             }
         }
         return $this->render(
