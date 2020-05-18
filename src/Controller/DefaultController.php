@@ -23,10 +23,20 @@ class DefaultController extends AbstractController
      */
     public function index(placeRepository $placeRepository, categoryRepository $categoryRepository)
     {
+        return $this->redirectToRoute('page');
+    }
+
+    /**
+     * @Route("/p/{page}", name="page", defaults={"page": 1})
+     */
+    public function pages(placeRepository $placeRepository, categoryRepository $categoryRepository)
+    {
         $categories = $categoryRepository
             ->findAll();
 
         $placesByAvg = $placeRepository->findAvgRatePlace();
+        $countOfPlaces = count($placesByAvg);
+        print_r($countOfPlaces);
 
         return $this->render('default/index.html.twig', [
             'places' => $placesByAvg,
@@ -34,6 +44,7 @@ class DefaultController extends AbstractController
             'currentCategory' => ""
         ]);
     }
+
 
     /**
      * @Route("/category/{category}", name="category")
