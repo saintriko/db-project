@@ -29,36 +29,48 @@ class DefaultController extends AbstractController
     /**
      * @Route("/p/{page}", name="page", defaults={"page": 1})
      */
-    public function pages(placeRepository $placeRepository, categoryRepository $categoryRepository)
+    public function pages(placeRepository $placeRepository, categoryRepository $categoryRepository, $page)
     {
         $categories = $categoryRepository
             ->findAll();
 
+        $placesOnPage = 10;
         $placesByAvg = $placeRepository->findAvgRatePlace();
         $countOfPlaces = count($placesByAvg);
-        print_r($countOfPlaces);
+        $countOfPages = $countOfPlaces / $placesOnPage;
+        $placesByAvg = array_slice($placesByAvg, $placesOnPage * ( $page - 1 ) , $placesOnPage);
+
 
         return $this->render('default/index.html.twig', [
             'places' => $placesByAvg,
             'categories' => $categories,
-            'currentCategory' => ""
+            'currentCategory' => "",
+            'countOfPages' => $countOfPages,
+            'currentPage' => $page
         ]);
     }
 
 
     /**
-     * @Route("/category/{category}", name="category")
+     * @Route("/category/{category}/{page}", name="category", defaults={"page": 1})
      */
-    public function category(placeRepository $placeRepository, categoryRepository $categoryRepository, $category)
+    public function category(placeRepository $placeRepository, categoryRepository $categoryRepository, $category, $page)
     {
         $categories = $categoryRepository
             ->findAll();
 
+        $placesOnPage = 10;
         $placesByAvg = $placeRepository->findAvgRatePlaceByCategory($categoryRepository->findOneBy(['name' => $category])->getId());
+        $countOfPlaces = count($placesByAvg);
+        $countOfPages = $countOfPlaces / $placesOnPage;
+        $placesByAvg = array_slice($placesByAvg, $placesOnPage * ( $page - 1 ) , $placesOnPage);
+
         return $this->render('default/index.html.twig', [
             'places' => $placesByAvg,
             'categories' => $categories,
-            'currentCategory' => $category
+            'currentCategory' => $category,
+            'countOfPages' => $countOfPages,
+            'currentPage' => $page
         ]);
     }
 
