@@ -43,10 +43,9 @@
                 <div>
                     <nav aria-label="Pagination">
                         <ul class="pagination">
-                            <li class="pagination-previous disabled"> <span class="show-for-sr">page</span></li>
+                            <li class="pagination-previous"><a href="#" aria-label="Next page"> <span class="show-for-sr">page</span></a></li>
                             {% for i in 1..countOfPages + 1 %}
-
-                            <li><a {% if i == currentPage %} class="current" {% endif %} href="{{ path('page', { 'page' : i }) }}" aria-label="Page 2">{{ i }}</a></li>
+                                <li><a {% if i == currentPage %} class="current" {% endif %} href="{% if currentCategory == "" %}{{ path('page', { 'page' : i }) }} {% else %} {{ path('category', { 'page' : i , 'category' : currentCategory}) }} {% endif %}" aria-label="Page 2">{{ i }}</a></li>
                             {% endfor %}
                             <li class="pagination-next"><a href="#" aria-label="Next page"> <span class="show-for-sr">page</span></a></li>
                         </ul>
