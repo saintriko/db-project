@@ -24,6 +24,12 @@
 
     <div class="example-wrapper">
         <h1>{{ place.name }}</h1>
+
+        {% if app.user.role.name == 'ROLE_ADMIN' %}
+            <a href="{{ path('edit services', { 'id' : place.id }) }}">Редактировать услуги места</a>
+            <a href="{{ path('edit place', { 'id' : place.id }) }}">Редактировать место</a>
+        {% endif %}
+
         {% if app.user and saved %}
             <a href="{{ path('remove_from_favourite', { 'id' : place.id }) }}">Удалить из ибранного(можно добавить картинку)</a>
         {% elseif app.user %}
