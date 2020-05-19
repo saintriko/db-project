@@ -1,0 +1,34 @@
+# Use the PHP 7.3 runtime (BETA) by replacing "php72" below with "php73"
+runtime: php72
+
+env_variables:
+  APP_ENV: prod
+  APP_SECRET: 107f2031081f794a9ca0b1f204066030
+  APP_DEBUG: true
+
+  ## For connecting to Cloud SQL with Doctrine
+  ## This is used in part two of the README:
+  DATABASE_URL: mysql://root:@localhost?unix_socket=/cloudsql/innate-beacon-277713:europe-west1:places;dbname=symfonydb
+
+
+handlers:
+  # Declare the build and bundles directory as static assets to be served by the
+  # App Engine CDN.
+  - url: /build
+    static_dir: public/build
+  - url: /bundles
+    static_dir: public/bundles
+
+  # Declare any media files in the public directory as static assets as well.
+  - url: /(.*\.(ico|txt|gif|png|jpg))$
+    static_files: public/\1
+    upload: public/.*\.(ico|txt|gif|png|jpg)$
+
+  - url: /css
+    static_dir: public/css
+
+  - url: /js
+    static_dir: public/js
+
+  - url: /images
+    static_dir: public/images
