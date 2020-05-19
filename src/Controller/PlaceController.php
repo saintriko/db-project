@@ -131,6 +131,36 @@ class PlaceController extends AbstractController
         return $this->redirectToRoute('edit services', ['id'=> $id]);
     }
 
+
+    /**
+     * @Route("/place/{id}/delete", name="delete place")
+     */
+    public function deletePlace(int $id, PlaceRepository $placeRepository)
+    {
+        $place = $placeRepository->findOneBy(['id' => $id]);
+        $em = $this->getDoctrine()->getManager();
+
+        $WorkTimes = $place->getWorkTimes();
+        foreach ($WorkTimes as $workTime) {
+            $em->remove($workTime);
+        }
+        $Images = $place->getImages();
+        foreach ($Images as $image) {
+            $em->remove($image);
+        }
+        $PlaceHasServices = $place->getPlaceHasServices();
+        foreach ($PlaceHasServices as $PlaceHasService) {
+            $em->remove($PlaceHasService);
+        }
+        $UserFeedbackPlaces = $place->getUserFeedbackPlaces();
+        foreach ($UserFeedbackPlaces as $UserFeedbackPlace) {
+            $em->remove($UserFeedbackPlace);
+        }
+        $em->remove($place);
+        $em->flush();
+        return $this->redirectToRoute('default');
+    }
+
     /**
      * @Route("/place/{id}/addService", name="add service action")
      */

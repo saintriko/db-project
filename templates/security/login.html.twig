@@ -32,13 +32,10 @@
 
     <div class="entry">
         <h1 class="entry_head">Добро пожаловать</h1>
-        {% if error %}
-            <span class="error_login">{{ error }}</span>
-        {% endif %}
         <div class="grid-container">
             <form class="form_input" method="post">
                 {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    <div class="alert alert-danger">{{ error.message }}</div>
                 {% endif %}
 
                 {% if app.user %}
