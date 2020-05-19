@@ -135,7 +135,7 @@ class PlaceController extends AbstractController
     /**
      * @Route("/place/{id}/delete", name="delete place")
      */
-    public function deletePlace(int $id, PlaceRepository $placeRepository)
+    public function deletePlace(int $id, PlaceRepository $placeRepository, UserSavedPlaceRepository $userSavedPlaceRepository)
     {
         $place = $placeRepository->findOneBy(['id' => $id]);
         $em = $this->getDoctrine()->getManager();
@@ -155,6 +155,10 @@ class PlaceController extends AbstractController
         $UserFeedbackPlaces = $place->getUserFeedbackPlaces();
         foreach ($UserFeedbackPlaces as $UserFeedbackPlace) {
             $em->remove($UserFeedbackPlace);
+        }
+        $SavedPlaces = $userSavedPlaceRepository->findBy(['place' => $place]);
+        foreach ($SavedPlaces as $SavedPlace) {
+            $em->remove($SavedPlace);
         }
         $em->remove($place);
         $em->flush();
