@@ -149,6 +149,7 @@
                             {% if app.user and app.user.role.name == 'ROLE_ADMIN' %}
                                 <a href="{{ path('edit services', { 'id' : place.id }) }}">Редактировать услуги места</a>
                                 <a href="{{ path('edit place', { 'id' : place.id }) }}">Редактировать место</a>
+                                <a href="{{ path('delete place', { 'id' : place.id }) }}">Удалить место</a>
                             {% endif %}
                         </div>
                         <p class="text_info"> Rate: {{ argRate }}</p>
@@ -211,6 +212,7 @@
                     </div>
 
                     <div class="div_review">
+                        {% if app.user %}
                         <spam class="title_info">Оценить заведение</spam>
                         <form action="{{ path('place', { 'id' : place.id }) }}" method="POST">
 
@@ -221,7 +223,7 @@
                                     <option value="{{ i }}" class="rate-show">{{ i }}</option>
 
                                         {#<option class="rate-show" value="{{ i }}">{{ i }}</option>#}
-                                    {% endfor %}
+                                {% endfor %}
                                 </select>
                             </span>
 
@@ -231,6 +233,7 @@
                             <textarea name="feedback_text" class="input_review" placeholder="Поделиться мнением, написать отзыв"></textarea>
                             <button class="button send_comment" type="submit">Leave feedback</button>
                         </form>
+                        {% endif %}
 
                         <div class="comments">
                             {% for  commentary in commentaries %}
