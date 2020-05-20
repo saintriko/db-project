@@ -7,10 +7,10 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
 
         {% block stylesheets %}
-
             <link rel="stylesheet" href="{{ asset('css/foundation.css') }}">
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-            <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700i&display=swap&subset=cyrillic" rel="stylesheet">{% endblock %}
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700i&display=swap&subset=cyrillic" rel="stylesheet">
+        {% endblock %}
     </head>
     <body>
 
@@ -30,12 +30,13 @@
             <header>
                 <div class="grid-container">
                     <div class="top-bar white_header">
-                        <a href="{{ path('default')}}"><img src="{{ asset('images/favicon.ico') }}" alt="logo" class="logo top-bar-left"></a>
-                        <p>{{ app.user.name }}</p>
+                        <a href="{{ path('default')}}"><img src="{{ asset('images/logotype.png') }}" alt="logo" class="logo top-bar-left"></a>
+
                         <div class="top-bar-right">
-                            <a href="{{ path('add place') }}">Добавить место</a>
-                            <a href="{{ path('favourite_places') }}">Любимые места</a>
-                            <a href="{{ path('app_logout') }}">Logout</a>
+                            <span class="name_account">{{ app.user.name }}</span>
+                            <a class="add_place" href="{{ path('add place') }}">Добавить место</a>
+                            <a class="place" href="{{ path('favourite_places') }}">Любимые места</a>
+                            <a class="log_out" href="{{ path('app_logout') }}">Logout</a>
                         </div>
                     </div>
                 </div>
@@ -52,7 +53,31 @@
                     </div>
                 </div>
             </div>
+        </header>
         {% endif %}
+
+        {#  ???  {% if path.('add place')  %}
+                <div class="grid-container">
+                    <div class="section_title">
+                        <img src= "{{ asset('images/icon-pen.png') }}">
+                        <h1>Создание нового заведения</h1>
+                    </div>
+                </div>
+            {% elseif path('edit services') %}
+                <div class="grid-container">
+                    <div class="section_title">
+                        <img src= "{{ asset('images/icon-pen.png') }}">
+                        <h1>{{ place.name }}</h1>
+                    </div>
+                </div>
+            {% elseif path('edit place') %}
+                <div class="grid-container">
+                    <div class="section_title">
+                        <img src= "{{ asset('images/icon-pen.png') }}">
+                        <h1>Редактирование заведения</h1>
+                    </div>
+                </div>
+            {% endif %}  #}
 
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}

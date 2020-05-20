@@ -39,13 +39,15 @@
 
 .top-bar .place,
 .top-bar .log_out,
+.top-bar .add_place,
 .top-bar .name_account
 {
     padding: 0 20px 0 0;
 }
 
 .top-bar .place:hover,
-.top-bar .log_out:hover
+.top-bar .log_out:hover,
+.top-bar .add_place:hover
 {
     text-decoration: underline;
 }
@@ -135,7 +137,7 @@
     font-family: Open Sans;
     font-style: italic;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 27px;
     color: #333333;
 }
@@ -144,7 +146,7 @@
     font-family: Open Sans;
     font-style: normal;
     font-weight: normal;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 27px;
     color: #828282;
 }
@@ -182,10 +184,7 @@
     /*float: right;*/
     float: left;
 
-    width: 44px;
-    height: 40px;
-    background: url(style.css/../../images/icon-star.png) no-repeat 0px -48px;
-    transition: 0.5s;
+    review
 }
 
 /*.elementRate > *:hover {

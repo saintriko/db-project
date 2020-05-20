@@ -43,11 +43,19 @@
                 <div>
                     <nav aria-label="Pagination">
                         <ul class="pagination">
-                            <li class="pagination-previous"><a href="#" aria-label="Next page"> <span class="show-for-sr">page</span></a></li>
+                            <li class="pagination-previous {% if currentPage == 1 %}disabled {% endif %}">
+                                {% if currentPage > 1 %} <a href="{{ path('page', { 'page' : 1 }) }}" aria-label="Next page"></a> <span class="show-for-sr"></span>{% endif %}</li>
                             {% for i in 1..countOfPages + 1 %}
-                                <li><a {% if i == currentPage %} class="current" {% endif %} href="{% if currentCategory == "" %}{{ path('page', { 'page' : i }) }} {% else %} {{ path('category', { 'page' : i , 'category' : currentCategory}) }} {% endif %}" aria-label="Page 2">{{ i }}</a></li>
+
+                                <li><a {% if i == currentPage %}class="current"{% endif %}
+                                       href="{% if currentCategory == "" %}{{ path('page', { 'page' : i }) }}
+                                       {% else %} {{ path('category', { 'page' : i , 'category' : currentCategory}) }}
+                                       {% endif %}" aria-label="Page 2">{{ i }}</a></li>
+
                             {% endfor %}
-                            <li class="pagination-next"><a href="#" aria-label="Next page"> <span class="show-for-sr">page</span></a></li>
+                            <li class="pagination-next {% if currentPage == 2 %}disabled {% endif %}">
+                                {% if currentPage < 2 %} <a href="{{ path('page', { 'page' : 2 }) }}" aria-label="Next page"></a> <span class="show-for-sr"></span>{% endif %}</li>
+                            {# fix 2 to max value #}
                         </ul>
                     </nav>
                 </div>

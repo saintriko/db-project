@@ -7,49 +7,75 @@
         .over_the_field {
             margin-bottom: 0;
         }
+
+        .service_remove
+        {
+            font-family: Open Sans;
+            font-size: 14px;
+            color: #333333;
+            float: right;
+        }
+
+        .service_remove:hover
+        {
+            text-decoration: underline;
+        }
+
+        .new_service_name,
+        .new_service_cost
+        {
+            font-family: Open Sans;
+            font-style: italic;
+            font-size: 16px;
+        }
+
+        .dash
+        {
+            margin: 0 10px 0;
+        }
+        .imz_cen
+        {
+            display: inline-flex;
+        }
     </style>
 
-<body>
-    <div class="grid-container">
-        <div class="section_title">
-            <img src= "{{ asset('images/icon-pen.png') }}">
-            <h1>{{ place.name }}</h1>
-        </div>
-    </div>
+    <body>
 
-    <div>
-        <a href="{{ path('place', { 'id' : place.id }) }}">К заведнию</a>
-    </div>
-
-    <form  action="addService" method="post">
     <form class="form" action="addService" method="post">
         <div class="grid-container">
             <div class="grid-x grid-margin-x">
-                <div class="cell small-12 medium-12 large-4">
-                <div class="service_name">
-                    <p class="over_the_field">Услуга</p>
-                    <input type="text" name="text" class="input-group-field input_footer_form_create_place" placeholder="Название услуги">
-                </div>
-                <div class="service_cost">
-                    <p class="over_the_field">Цена</p>
-                    <input type="number" name="price" class="input-group-field input_footer_form_create_place" placeholder="Стоимость, руб">
-                </div>
+                <div class="cell small-12 medium-12 large-6">
+                    <div class="service_name">
+                        <p class="over_the_field">Услуга</p>
+                        <input type="text" name="name" class="input-group-field input_footer_form_create_place" placeholder="Название услуги">
+                    </div>
+                    <div class="service_cost">
+                        <p class="over_the_field">Цена</p>
+                        <input type="number" name="price" class="input-group-field input_footer_form_create_place" placeholder="Стоимость, руб">
+                    </div>
 
-                <label for="createNewPlace" class="button save_button cell small-12 medium-12 large-4">Создать услугу</label>
-                <input type="submit" id="createNewPlace" class="show-for-sr"></input>
+                    <label for="createNewPlace" class="button save_button cell small-12 medium-12 large-4">Создать услугу</label>
+                    <input type="submit" id="createNewPlace" class="show-for-sr"></input>
                 </div>
             </div>
         </div>
     </form>
 
-    <div>
-        {% for service in services %}
-        <div>
-            <p>{{ service[1] }}</p>
-            <p>{{ service[2] }}</p>
-            <a href="deleteService/{{ service[0] }}">Удалить услугу</a>
+    <div class="grid-container">
+        <div class="grid-x grid-margin-x">
+            <div class="cell small-12 medium-12 large-6">
+                {% for service in services %}
+                    <div class="fon_block">
+                        <div class="imz_cen">
+                            <p class="new_service_name">{{ service[1] }}</p>
+                            <p class="dash"> — </p>
+                            <p class="new_service_cost">{{ service[2] }}</p>
+                        </div>
+                        <a class="service_remove" href="deleteService/{{ service[0] }}">Удалить услугу</a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
     </div>
-</body>
+    </body>
 {% endblock %}

@@ -95,7 +95,7 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @Route("/place/{id}/editServicesremove_from_favourite", name="edit services")
+     * @Route("/place/{id}/editServices", name="edit services")
      */
     public function editServices(int $id, PlaceRepository $placeRepository, CategoryRepository $categoryRepository)
     {
