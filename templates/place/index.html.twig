@@ -189,7 +189,7 @@
                             <spam class="title_info">Оценить заведение</spam>
                             <form action="{{ path('place', { 'id' : place.id }) }}" method="POST">
 
-                                <select size="10" name="rate" class="elementRate">
+                                <select size="10" name="rate" class="elementRate" required>
                                     {% for i in 1..10 %}
 
                                         <option class="rate-show" value="{{ i }}">{{ i }}</option>
