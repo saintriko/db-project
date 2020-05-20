@@ -145,7 +145,7 @@
                                         <tbody class="list_tbody">
                                         {% for  workTime in workTimes %}
                                             <tr>
-                                                <td class="text_info">День недели</td>
+                                                <td class="text_info">{{ weekDays[workTime.WeekDay] }}</td>
                                                 <td class="text_info">{{ workTime.startTime|date("H:i", false) }}
                                                     – {{ workTime.endTime|date("H:i", false) }}</td>
                                             </tr>

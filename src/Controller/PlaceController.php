@@ -35,7 +35,7 @@ class PlaceController extends AbstractController
     {
         $user = $this->getUser();
         if ($user)
-            $user = $userRepository->findOneBy(['id'=>$user->getId()]);
+            $user = $userRepository->findOneBy(['id' => $user->getId()]);
 
         $place = $placeRepository->findOneBy(['id' => $id]);
 
@@ -77,12 +77,13 @@ class PlaceController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($userFeedBack);
             $em->flush();
-            return $this->redirectToRoute('place', ['id'=> $id]);
+            return $this->redirectToRoute('place', ['id' => $id]);
         }
 
-        $commentaries = $place -> getUserFeedbackPlaces();
+        $commentaries = $place->getUserFeedbackPlaces();
 
         $savedPlace = ($user != null) ? $userSavedPlaceRepository->findOneBy(['user' => $user, 'place' => $place]) : null;
+        $weekDays = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
 
         return $this->render('place/index.html.twig', [
             'place' => $place,
@@ -90,7 +91,8 @@ class PlaceController extends AbstractController
             'argRate' => $argRate,
             'imagesPaths' => $imagesPaths,
             'commentaries' => $commentaries,
-            'saved' => $savedPlace
+            'saved' => $savedPlace,
+            'weekDays' => $weekDays
         ]);
     }
 
@@ -128,7 +130,7 @@ class PlaceController extends AbstractController
         $em->remove($placeHasService);
         $em->flush();
 
-        return $this->redirectToRoute('edit services', ['id'=> $id]);
+        return $this->redirectToRoute('edit services', ['id' => $id]);
     }
 
 
@@ -174,24 +176,23 @@ class PlaceController extends AbstractController
         $place = $placeRepository->findOneBy(['id' => $id]);
 
         $service = $serviceRepository->findOneBy(['name' => $params["name"]]);
-        if ($service == NULL)
-        {
+        if ($service == NULL) {
             $service = new Service();
-            $service -> setName($params["name"]);
+            $service->setName($params["name"]);
             $em = $this->getDoctrine()->getManager();
             $em->persist($service);
             $em->flush();
         }
 
         $placeHasService = new PlaceHasService();
-        $placeHasService -> setPlace($place);
-        $placeHasService -> setService($service);
-        $placeHasService -> setPrice($params["price"]);
+        $placeHasService->setPlace($place);
+        $placeHasService->setService($service);
+        $placeHasService->setPrice($params["price"]);
         $em = $this->getDoctrine()->getManager();
         $em->persist($placeHasService);
         $em->flush();
 
-        return $this->redirectToRoute('edit services', ['id'=> $id]);
+        return $this->redirectToRoute('edit services', ['id' => $id]);
     }
 
     /**
@@ -204,7 +205,7 @@ class PlaceController extends AbstractController
         $em->remove($image);
         $em->flush();
 
-        return $this->redirectToRoute('edit place', ['id'=> $id]);
+        return $this->redirectToRoute('edit place', ['id' => $id]);
     }
 
     /**
@@ -240,14 +241,14 @@ class PlaceController extends AbstractController
         $place = $placeRepository->findOneBy(['id' => $id]);
 
         $params = $request->request->all();
-        $place -> setName($params["name"]);
-        $place -> setAddress($params["address"]);
-        $place -> setPhoneNumber($params["phone"]);
-        $place -> setCategory($categoryRepository
+        $place->setName($params["name"]);
+        $place->setAddress($params["address"]);
+        $place->setPhoneNumber($params["phone"]);
+        $place->setCategory($categoryRepository
             ->findOneBy(['id' => $params["category"]]));
-        $place -> setDescription($params["description"]);
-        $place -> setLatitude($params["latitude"]);
-        $place -> setLongitude($params["longitude"]);
+        $place->setDescription($params["description"]);
+        $place->setLatitude($params["latitude"]);
+        $place->setLongitude($params["longitude"]);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($place);
@@ -255,7 +256,7 @@ class PlaceController extends AbstractController
 
         $files = $request->files->all();
         foreach ($files as $file) {
-            print_r ($file);
+            print_r($file);
             if (!is_null($file)) {
                 try {
                     $filename = uniqid($params["name"]) . "." . $file->guessExtension();
@@ -273,14 +274,14 @@ class PlaceController extends AbstractController
 
         $placeWorkTimes = $place->getWorkTimes();
 
-        for($i = 0; $i <= 6; $i++) {
-            $placeWorkTimes[$i] ->setStartTime(\DateTime::createFromFormat('H:i', $params[$i . "_start_time"]));
-            $placeWorkTimes[$i] ->setEndTime(\DateTime::createFromFormat('H:i', $params[$i . "_start_time"]));
+        for ($i = 0; $i <= 6; $i++) {
+            $placeWorkTimes[$i]->setStartTime(\DateTime::createFromFormat('H:i', $params[$i . "_start_time"]));
+            $placeWorkTimes[$i]->setEndTime(\DateTime::createFromFormat('H:i', $params[$i . "_start_time"]));
             $em = $this->getDoctrine()->getManager();
             $em->persist($placeWorkTimes[$i]);
             $em->flush();
         }
 
-        return $this->redirectToRoute('place', ['id'=> $id]);
+        return $this->redirectToRoute('place', ['id' => $id]);
     }
 }
