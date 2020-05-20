@@ -84,7 +84,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/add", name="add place")
+     * @Route("/admin/add", name="add place")
      */
     public function add(categoryRepository $categoryRepository, Request $request)
     {
@@ -100,7 +100,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/addFormAction", name="add place action")
+     * @Route("/admin/addFormAction", name="add place action")
      */
     public function addFormAction(categoryRepository $categoryRepository, Request $request, ImageRepository $ImageRepository)
     {

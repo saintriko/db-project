@@ -95,7 +95,7 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @Route("/place/{id}/editServicesremove_from_favourite", name="edit services")
+     * @Route("/admin/place/{id}/editServices", name="edit services")
      */
     public function editServices(int $id, PlaceRepository $placeRepository, CategoryRepository $categoryRepository)
     {
@@ -118,7 +118,7 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @Route("/place/{id}/deleteService/{idService}", name="delete service action")
+     * @Route("/admin/place/{id}/deleteService/{idService}", name="delete service action")
      */
     public function deleteService(int $id, int $idService, PlaceHasServiceRepository $placeHasServiceRepository)
     {
@@ -133,7 +133,7 @@ class PlaceController extends AbstractController
 
 
     /**
-     * @Route("/place/{id}/delete", name="delete place")
+     * @Route("/admin/place/{id}/delete", name="delete place")
      */
     public function deletePlace(int $id, PlaceRepository $placeRepository, UserSavedPlaceRepository $userSavedPlaceRepository)
     {
@@ -166,7 +166,7 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @Route("/place/{id}/addService", name="add service action")
+     * @Route("/admin/place/{id}/addService", name="add service action")
      */
     public function addService(int $id, PlaceRepository $placeRepository, ServiceRepository $serviceRepository, Request $request)
     {
@@ -195,7 +195,7 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @Route("/place/{id}/deleteImage/{idImage}", name="delete image")
+     * @Route("/admin/place/{id}/deleteImage/{idImage}", name="delete image")
      */
     public function deleteImage(int $id, int $idImage, PlaceHasServiceRepository $placeHasServiceRepository, ImageRepository $imageRepository)
     {
@@ -208,7 +208,7 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @Route("/place/{id}/edit", name="edit place")
+     * @Route("/admin/place/{id}/edit", name="edit place")
      */
     public function editPlace(int $id, PlaceRepository $placeRepository, CategoryRepository $categoryRepository)
     {
@@ -233,7 +233,7 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @Route("/place/{id}/editAction", name="edit place action")
+     * @Route("/admin/place/{id}/editAction", name="edit place action")
      */
     public function editPlaceAction(int $id, PlaceRepository $placeRepository, CategoryRepository $categoryRepository, Request $request)
     {
