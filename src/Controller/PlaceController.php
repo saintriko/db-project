@@ -256,10 +256,9 @@ class PlaceController extends AbstractController
 
         $files = $request->files->all();
         foreach ($files as $file) {
-            print_r($file);
             if (!is_null($file)) {
                 try {
-                    $filename = uniqid($params["name"]) . "." . $file->guessExtension();
+                    $filename = uniqid("") . "." . $file->guessExtension();
                     $file->move($this->getParameter('kernel.project_dir') . '/public/images', $filename);  //TODO путь может не работать в онлайне
                     $photo = new Image();
                     $photo->setPlace($place);

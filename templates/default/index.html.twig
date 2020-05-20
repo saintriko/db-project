@@ -23,7 +23,7 @@
                             {% for place in places %}
                                 <tr>
                                     <td><a class="institution_name" href="{{ path('place', { 'id' : place.placeId }) }}">«{{ place.name }}»</a></td>
-                                    <td>{{ place.avgRate }}</td>
+                                    <td>{{ place.avgRate|round(2) }}</td>
                                     <td>{% if app.user %}{{ place.rate }}{% endif %}</td>
                                 </tr>
                             {% endfor %}
