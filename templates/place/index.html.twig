@@ -12,15 +12,12 @@
             background: url("{{ asset('../images/icon-favorites.png') }}") no-repeat 0px 0px;
             transition: 0.5s;
         }
-
         .favorite_place_delete:hover {
             background-position: 0px -48px;
         }
-
         .favorite_place_delete:focus {
             background-position: 0px -48px;
         }
-
         .edit {
             font-family: Open Sans;
             font-style: normal;
@@ -29,11 +26,9 @@
             line-height: 27px;
             color: #5400E5;
         }
-
         .edit:hover {
             text-decoration: underline;
         }
-
         .rate-show {
             text-align: center;
             padding: 14px 0 0 0;
@@ -41,59 +36,94 @@
             font-weight: bold;
             width: 40px;
         }
-
         .rate-show {
             width: 40px;
             height: 40px;
             background: url("{{ asset('../images/icon-star.png')}}") no-repeat 0px -48px;
             transition: 0.5s;
         }
-
         .rate-show:hover {
             background-position: 0px 2px;
             cursor: pointer;
         }
-
         .rate-show:focus {
             background-position: 0px 2px;
         }
-
         .rate-show:focus-within {
             background-position: 0px 2px;
         }
-
         .rate-show:active {
             background-position: 0px 2px;
         }
-
         .elementRate {
             border: hidden;
             height: 50px;
             overflow-y: hidden;
         }
-
         select {
             background-origin: border-box;
         }
-
         select:focus {
             outline: none;
             border: none;
             box-shadow: none;
         }
-
         select option:checked {
             padding: 2px 0 0 0;
             background: white linear-gradient(white, white);
             content: url("{{ asset('../images/icon-star-alone.png')}}");
             transition: 0.5s;
         }
-
         .reviews {
             margin-top: 30px;
         }
-    </style>
 
+        #slider {
+            overflow: hidden;
+            padding-top: 20px;
+        }
+        #slider figure {
+            position: relative;
+            width: 500%;
+            margin: 0;
+            left: 0;
+            animation: 20s slider infinite;
+        }
+        #slider figure img {
+            float: left;
+            width: 20%;
+        }
+
+        @keyframes slider {
+            0% {
+                left: 0;
+            }
+            20% {
+                left: 0;
+            }
+            25% {
+                left: -100%;
+            }
+            45% {
+                left: -100%;
+            }
+            50% {
+                left: -200%;
+            }
+            70% {
+                left: -200%;
+            }
+            75% {
+                left: -300%;
+            }
+            95% {
+                left: -300%;
+            }
+            100% {
+                left: -400%;
+            }
+        }
+    </style>
 
     <div class="information">
         <div class="grid-container">
@@ -207,21 +237,21 @@
 
                 <div class="cell small-6 medium-6 large-6">
                     <div id="map" class="map"></div>
-                </div>
 
-                <div class="cell small-6 medium-6 large-6">
-                    {% for  image in imagesPaths %}
+                    <div class="cell small-6 medium-6 large-6" id="slider">
+                        <figure>
+                            {% for  image in imagesPaths %}
 
-                        <img src="{{ asset( image ) }} " width="200" height="200"/>
+                                <img src="{{ asset( image ) }}">
 
-                    {% endfor %}
+                            {% endfor %}
+                        </figure>
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
-
-
 
     <div class="reviews">
         <div class="grid-container">
@@ -242,19 +272,16 @@
         </div>
     </div>
 
-
     {% block javascripts %}
         <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
         <script type="text/javascript">
             ymaps.ready(init);
-
             function init() {
                 var myMap = new ymaps.Map("map", {
                     center: [{{ place.latitude }}, {{ place.longitude }}],
                     zoom: 15,
                     behaviors: ['drag']
                 });
-
                 myGeoObject = new ymaps.GeoObject({
                     geometry: {
                         type: "Point",
@@ -263,14 +290,10 @@
                 }, {
                     preset: 'islands#violetDotIcon'
                 });
-
                 myMap.geoObjects
                     .add(myGeoObject);
-
             }
         </script>
     {% endblock %}
-
-
 
 {% endblock %}
