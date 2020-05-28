@@ -1,13 +1,11 @@
 # db-project
  
-Places
-https://innate-beacon-277713.ew.r.appspot.com/p
+<h1>Places</h1>
 
-web projects based on symfony
-with usage MySQL as DB.
+<h2>web projects based on symfony with usage MySQL as DB.</h2>
+<ul>
+<li>use \app.yaml for deploy app on Google Cloud
 
-use \app.yaml for deploy app on Google Cloud
+<li>set DATABASE_URL in \.env
 
-set DATABASE_URL in \.env
-
-ROLES ('ROLE_USER', 'ROLE_ADMIN')
+<li>ROLES ('ROLE_USER', 'ROLE_ADMIN')
