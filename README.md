@@ -9,3 +9,5 @@
 <li>set DATABASE_URL in \.env
 
 <li>ROLES ('ROLE_USER', 'ROLE_ADMIN')
+ 
+![Иллюстрация к проекту](https://github.com/saintriko/db-project/blob/master/places.PNG)
