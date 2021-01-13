@@ -33,7 +33,7 @@
                 </div>
                 <div class="cell small-12 medium-2 large-2">
                     <div>
-                        <spam class="title_category">Категория</spam>
+                        <span class="title_category">Категория</span>
                         <ul class="category_list">
                             {% for  category in categories %}
                                 <li><a href="{{ path('category', { 'category' : category.name }) }}" class="category_is_list {% if currentCategory == category.name %} active {% endif %} ">{{category.name}}</a></li>
