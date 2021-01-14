@@ -826,7 +826,7 @@
 }
 .rate-show {
     width: 40px;
-    height: 40px;
+    height: 38px;
     background: url('../images/icon-star.png') no-repeat 0px -48px;
     transition: 0.5s;
 }
@@ -844,7 +844,7 @@
 }
 .elementRate {
     border: hidden;
-    height: 50px;
+    height: 65px;
     overflow-y: hidden;
     display: table-row;
 }
@@ -858,7 +858,7 @@ select:focus {
 }
 select option:checked {
     padding: 2px 0 0 0;
-    background: url('../images/icon-star.png') no-repeat 0px -48px;
+    background: url('../images/icon-star.png') no-repeat 0px 0px;
     transition: 0.5s;
 }
 .reviews {

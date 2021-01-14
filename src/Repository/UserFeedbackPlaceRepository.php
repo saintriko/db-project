@@ -19,32 +19,4 @@ class UserFeedbackPlaceRepository extends ServiceEntityRepository
         parent::__construct($registry, UserFeedbackPlace::class);
     }
 
-    // /**
-    //  * @return UserFeedbackPlace[] Returns an array of UserFeedbackPlace objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?UserFeedbackPlace
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
