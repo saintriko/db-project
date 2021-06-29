@@ -3,7 +3,7 @@ runtime: php72
 
 env_variables:
   APP_ENV: prod
-  APP_SECRET: 107f2031081f794a9ca0b1f204066030
+  APP_SECRET: 
 
   ## For connecting to Cloud SQL with Doctrine
   ## This is used in part two of the README:
