@@ -7,7 +7,7 @@
 <h3>We also can see pictures and marker on the map</h3>
 <h3>(RUS:Проект отображает рейтинг заведений, с сортировкой по категориям)</h3>
 <ul>
-<h3>Last task of this course was to deploy project on Google Cloud</h3>
+<h3>As last step of the course project was deployed on Google Cloud</h3>
  <li>(use \app.yaml for deploy app on Google Cloud)
 
 <li>set DATABASE_URL in \.env
