@@ -4,6 +4,7 @@
 
 <h2>Web project based on symfony and MySQL db.</h2>
 <h3>Main idea of the project to show rate of the places with grouping by categories</h3>
+<h3>We also can see pictures and marker on the map</h3>
 <h3>Проект отображает рейтинг заведений, с сортировкой по категориям</h3>
 <ul>
 <h3>Last task of this course was to deploy project on Google Cloud</h3>
