@@ -1,10 +1,13 @@
-# db-project
+# db-course-project
  
-<h1>Places</h1>
+<h1>The Places</h1>
 
-<h2>web project based on symfony with usage MySQL as DB.</h2>
+<h2>Web project based on symfony and MySQL db.</h2>
+<h3>Main idea of the project to show rate of the places with grouping by categories</h3>
+<h3>Проект отображает рейтинг заведений, с сортировкой по категориям</h3>
 <ul>
-<li>use \app.yaml for deploy app on Google Cloud
+<h3>Last task of this course was to deploy project on Google Cloud</h3>
+ <li>(use \app.yaml for deploy app on Google Cloud)
 
 <li>set DATABASE_URL in \.env
 <li>php bin/console doctrine:database:create
