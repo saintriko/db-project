@@ -14,5 +14,8 @@
 <li>php bin/console doctrine:database:create
 <li>php bin/console doctrine:migrations:migrate
 <li>ROLES ('ROLE_USER', 'ROLE_ADMIN')
+</ul>
  
-![Иллюстрация к проекту](https://github.com/saintriko/db-project/blob/master/places.PNG)
+![Home](https://github.com/saintriko/db-project/blob/master/places.PNG)
+![PlacePage](https://github.com/saintriko/db-project/blob/master/place.png)
+![ER](https://github.com/saintriko/db-project/blob/master/er_diagram.png)
