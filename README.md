@@ -15,7 +15,8 @@
 <li>php bin/console doctrine:migrations:migrate
 <li>ROLES ('ROLE_USER', 'ROLE_ADMIN')
 </ul>
- 
+
+![ER](https://github.com/saintriko/db-project/blob/master/er_diagram.png)
 ![Home](https://github.com/saintriko/db-project/blob/master/places.PNG)
 ![PlacePage](https://github.com/saintriko/db-project/blob/master/place.png)
-![ER](https://github.com/saintriko/db-project/blob/master/er_diagram.png)
+
