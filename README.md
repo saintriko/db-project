@@ -3,21 +3,21 @@
 <h1>The Places</h1>
 
 <h2>Web project based on symfony5 and MySQL db.</h2>
+<h2>This project was created for 'Database course' in 'Volga State University of Technology'
 <h3>Main idea of the project to show rate of the places with grouping by categories</h3>
 <h3>We also can see pictures and marker on the map</h3>
+<h3>Last step for this course was to deploy the project on Google Cloud</h3>
+<h2>(use \app.yaml for deploy app on Google Cloud)</h2>
 <h3>(RUS:Проект отображает рейтинг заведений, с сортировкой по категориям)</h3>
 <ul>
-<h3>Last step of this course was to deploy it on Google Cloud</h3>
- <li>(use \app.yaml for deploy app on Google Cloud)
-
-<li>set DATABASE_URL in \.env
-<li>composer i (PHP 7.4)
-<li>php bin/console doctrine:database:create
-<li>php bin/console doctrine:migrations:migrate
-<li>Add role ('ROLE_USER', 'ROLE_ADMIN') to DB
-<li>Add category ('bar', 'cafe') to DB
-<li>Install Symfony https://symfony.com/download ('symfony-cli' (5.4.11) [64bit])
-<li>symfony server:start -d
+ <li>set DATABASE_URL in \.env
+ <li>composer i (PHP 7.4)
+ <li>php bin/console doctrine:database:create
+ <li>php bin/console doctrine:migrations:migrate
+ <li>Add role ('ROLE_USER', 'ROLE_ADMIN') to DB
+ <li>Add category ('bar', 'cafe') to DB
+ <li>Install Symfony https://symfony.com/download ('symfony-cli' (5.4.11) [64bit])
+ <li>symfony server:start -d
 
 </ul>
 
