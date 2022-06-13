@@ -14,9 +14,11 @@
 <li>composer i (PHP 7.4)
 <li>php bin/console doctrine:database:create
 <li>php bin/console doctrine:migrations:migrate
-<li>ROLES ('ROLE_USER', 'ROLE_ADMIN')
+<li>Add role ('ROLE_USER', 'ROLE_ADMIN') to DB
+<li>Add category ('bar', 'cafe') to DB
 <li>Install Symfony https://symfony.com/download
 <li>symfony server:start -d
+
 </ul>
 
 ![ER](https://github.com/saintriko/db-project/blob/master/er_diagram.png)
