@@ -7,7 +7,7 @@
 <h3>Main idea of the project to show rate of the places with grouping by categories</h3>
 <h3>We also can see pictures and marker of the place (cafe, bar etc.) on the map</h3>
 <h3>Last step for this course was to deploy the project on Google Cloud</h3>
-<h2>(use \app.yaml for deploy app on Google Cloud)</h2>
+<h4>(use \app.yaml for deploy app on Google Cloud)</h4>
 <h3>(RUS:Проект отображает рейтинг заведений, с сортировкой по категориям. Курс "Базы данных" в "ПГТУ")</h3>
 <ul>
  <li>set DATABASE_URL in \.env
