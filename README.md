@@ -2,7 +2,7 @@
  
 <h1>The Places</h1>
 
-<h2>Web project based on symfony and MySQL db.</h2>
+<h2>Web project based on symfony5 and MySQL db.</h2>
 <h3>Main idea of the project to show rate of the places with grouping by categories</h3>
 <h3>We also can see pictures and marker on the map</h3>
 <h3>(RUS:Проект отображает рейтинг заведений, с сортировкой по категориям)</h3>
@@ -16,7 +16,7 @@
 <li>php bin/console doctrine:migrations:migrate
 <li>Add role ('ROLE_USER', 'ROLE_ADMIN') to DB
 <li>Add category ('bar', 'cafe') to DB
-<li>Install Symfony https://symfony.com/download
+<li>Install Symfony https://symfony.com/download ('symfony-cli' (5.4.11) [64bit])
 <li>symfony server:start -d
 
 </ul>
