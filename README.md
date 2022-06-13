@@ -11,6 +11,7 @@
  <li>(use \app.yaml for deploy app on Google Cloud)
 
 <li>set DATABASE_URL in \.env
+<li>composer i (PHP ^7.1.3)
 <li>php bin/console doctrine:database:create
 <li>php bin/console doctrine:migrations:migrate
 <li>ROLES ('ROLE_USER', 'ROLE_ADMIN')
