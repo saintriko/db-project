@@ -1,7 +1,7 @@
 # db-course-project
  
 <h1>The Places</h1>
-<h2>This project was created for "Database course" in "Volga State University of Technology"
+<h2>This project was created for "Database & Backend course" in "Volga State University of Technology" 
 <h2>Web project based on Symfony5 and MySQL db.</h2>
 <h3>Main idea of the project to show rate of the places with grouping by categories</h3>
 <h3>We also can see pictures and marker of the place (cafe, bar etc.) on the map</h3>
